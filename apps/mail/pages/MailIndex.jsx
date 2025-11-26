@@ -16,11 +16,20 @@ export function MailIndex() {
             .catch(console.log)
     }
 
+    function onRemoveMail(mailId) {
+        mailService.remove(mailId)
+            .then(() => {
+                setMails(mails =>
+                    mails.filter(mail => mail.id !== mailId))
+            })
+            .catch(console.log)
+    }
 
     if (!mails) return <div>loading...</div>
+
     return (
         <section className="mail-index">
-            <MailList mails={mails} />
+            <MailList mails={mails} onRemoveMail={onRemoveMail} />
         </section>
     )
 }
