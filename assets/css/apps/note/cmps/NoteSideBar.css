@@ -1,4 +1,32 @@
 .note-side-bar {
-  background-color: beige;
-  grid-row: span 2;
+  padding-block: 1rem;
+
+  display: grid;
+  grid-auto-rows: 2rem;
+  gap: 1.2rem;
+  align-items: center;
+}
+
+.side-bar-row {
+  padding-left: 1.3rem;
+  border-top-right-radius: 5rem;
+  border-bottom-right-radius: 5rem;
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f1f3f4;
+  }
+
+  > img {
+    width: 30px;
+  }
+
+  &.active {
+    background-color: #feefc3;
+  }
 }
