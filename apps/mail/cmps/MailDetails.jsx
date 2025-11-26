@@ -20,7 +20,7 @@ export function MailDetails({ mailId }) {
 
     return (
         <section className="mail-details">
-            <h1>{subject}</h1>
+            <h1>{subject}//</h1>
 
         </section>
     )
