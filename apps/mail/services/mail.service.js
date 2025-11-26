@@ -1,1 +1,106 @@
-// mail service
+import { utilService } from "../../../services/util.service.js";
+import { storageService } from "../../../services/async-storage.service.js";
+
+const MAIL_KEY = 'mailDB'
+_createMails()
+
+export const mailService = {
+    query,
+    get,
+    remove,
+    save,
+    getEmptyMail,
+    // getDefaultFilter,
+    // getSearchParams,
+}
+
+function query() {
+    return storageService.query(MAIL_KEY)
+        .then(mails => {
+
+            // if (filterBy.txt) {
+            //     const regExp = new RegExp(filterBy.txt, 'i')
+            //     mails = mails.filter(mail => regExp.test(mail.title))
+            // }
+            // if (filterBy.maxPrice) {
+            //     mails = mails.filter(mail => mail.listPrice.amount < (filterBy.maxPrice))
+            // }
+            return mails
+        })
+}
+
+function get(id) {
+    return storageService.get(MAIL_KEY, id)
+        .then(mail => _setNextPrevMailId(mail))
+}
+
+function remove(id) {
+    return storageService.remove(MAIL_KEY, id)
+}
+
+function save(mail) {
+    if (mail.id) {
+        return storageService.put(MAIL_KEY, mail)
+    } else {
+        return storageService.post(MAIL_KEY, mail)
+    }
+}
+
+// function getDefaultFilter() {
+//     return { txt: '', maxPrice: '' }
+// }
+
+function getEmptyMail(title = '', price = '') {
+    return {
+        title,
+        listPrice: {
+            amount: price,
+            currencyCode: "EUR",
+            isOnSale: false
+        }
+    }
+}
+
+// function getSearchParams(searchParams) {
+//     const txt = searchParams.get('txt') || ''
+//     const maxPrice = searchParams.get('maxPrice') || ''
+//     return {
+//         txt,
+//         maxPrice
+//     }
+// }
+
+function _setNextPrevMailId(mail) {
+    return query().then((mails) => {
+        const mailIdx = mails.findIndex((currMail) => currMail.id === mail.id)
+        const nextMail = mails[mailIdx + 1] ? mails[mailIdx + 1] : mails[0]
+        const prevMail = mails[mailIdx - 1] ? mails[mailIdx - 1] : mails[mails.length - 1]
+        mail.nextMailId = nextMail.id
+        mail.prevMailId = prevMail.id
+        return mail
+    })
+}
+
+function _createMails() {
+    const mails = utilService.loadFromStorage(MAIL_KEY) || []
+    if (!mails || !mails.length) {
+        mails.push(_createMail())
+        mails.push(_createMail())
+        mails.push(_createMail())
+    }
+    utilService.saveToStorage(MAIL_KEY, mails)
+}
+
+function _createMail() {
+    return {
+        id: utilService.makeId(),
+        createdAt: new Date(),
+        subject: 'Miss you!',
+        body: 'Would love to catch up sometimes',
+        isRead: false,
+        sentAt: new Date(),
+        removedAt: null,
+        from: 'momo@momo.com',
+        to: 'user@appsus.com'
+    }
+}
