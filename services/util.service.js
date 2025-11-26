@@ -9,6 +9,7 @@ export const utilService = {
   loadFromStorage,
   saveToStorage,
   getRandomTimestamp,
+  getMonthNameShort
 }
 
 function saveToStorage(key, val) {
@@ -122,4 +123,9 @@ function getRandomTimestamp(rangeMs = 7 * 24 * 60 * 60 * 1000) {
   const now = Date.now()
   const randomOffset = Math.floor(Math.random() * rangeMs)
   return now - randomOffset
+}
+
+
+function getMonthNameShort(date) {
+  return date.toLocaleString('default', { month: 'short' })
 }
