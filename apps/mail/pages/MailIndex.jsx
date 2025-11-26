@@ -1,10 +1,12 @@
 import { mailService } from "../services/mail.service.js"
 import { MailList } from "../cmps/MailList.jsx"
+import { MailDetails } from "../cmps/MailDetails.jsx"
 
 const { useState, useEffect } = React
 
 export function MailIndex() {
     const [mails, setMails] = useState(null)
+    const [selectedMail, setSelectedMail] = useState(null)
 
     useEffect(() => {
         loadMails()
@@ -25,11 +27,20 @@ export function MailIndex() {
             .catch(console.log)
     }
 
+    function onSelectMail(mailId) {
+        setSelectedMail(mailId)
+    }
+
     if (!mails) return <div>loading...</div>
 
     return (
         <section className="mail-index">
-            <MailList mails={mails} onRemoveMail={onRemoveMail} />
+            {!selectedMail &&
+                <MailList mails={mails} onRemoveMail={onRemoveMail} onSelectMail={onSelectMail} />
+            }
+            {selectedMail &&
+                <MailDetails mailId={selectedMail} />
+            }
         </section>
     )
 }
