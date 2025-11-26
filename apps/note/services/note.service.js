@@ -60,3 +60,4 @@ function _createNotes() {
     utilService.saveToStorage(NOTE_KEY, notes)
   }
 }
+//
