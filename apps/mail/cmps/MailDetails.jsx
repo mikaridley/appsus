@@ -16,12 +16,18 @@ export function MailDetails({ mailId }) {
     }
 
     if (!mail) return <div>loading...</div>
-    const { from, subject, body, sentAt, isRead } = mail
 
+    if (!mail.isRead) {
+        mail.isRead = true
+        mailService.save(mail)
+    }
+
+    const { from, subject, body, sentAt } = mail
     return (
         <section className="mail-details">
             <h1>{subject}</h1>
-
+            <h3>{from}</h3>
+            <p>{body}</p>
         </section>
     )
 }
