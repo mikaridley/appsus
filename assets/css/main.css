@@ -7,20 +7,24 @@
 
 @import './basics/base.css';
 @import './basics/helpers.css';
-/* @import './basics/layout.css'; */
+@import './basics/layout.css';
 
 /* Pages */
 @import './pages/home.css';
-
-/* @import './apps/note/pages/NoteIndex.css'; */
-
+@import './apps/note/pages/NoteIndex.css';
 @import './apps/mail/pages/MailIndex.css';
 
 /* Cmps */
-
 @import './cmps/UserMsg.css';
 @import './cmps/AppHeader.css';
 
-/* Mail Cmp */
+/* Notes */
+@import './apps/note/cmps/NoteHeader.css';
+@import './apps/note/cmps/NoteSideBar.css';
+@import './apps/note/cmps/NoteList.css';
+
+/* Mail */
 @import './apps/mail/cmps/MailList.css';
 @import './apps/mail/cmps/MailPreview.css';
+
+/* @import './apps/mail/cmps/MailList.css'; */

@@ -1,1 +1,71 @@
- /* note list */
+.note-list {
+  padding: 1rem;
+}
+
+.notes-container {
+  max-width: 100%;
+  padding: 1rem;
+  padding: 1rem;
+
+  column-count: 4;
+  column-gap: 0.5rem;
+}
+
+.note {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #dadce0;
+
+  display: inline-block;
+  > .note-icons {
+    > img {
+      width: 15px;
+      cursor: pointer;
+    }
+  }
+}
+
+.add-note {
+  text-align: center;
+
+  > form {
+    > input {
+      width: 50vw;
+      max-width: 600px;
+      padding: 1rem;
+      border: 1px solid #dadce0;
+      border-radius: 8px;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+
+      font-size: 1rem;
+      outline: none;
+    }
+  }
+}
+
+.full-note-input {
+  width: 50vw;
+  max-width: 600px;
+  border: 1px solid #dadce0;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  margin: auto;
+  border-radius: 15px;
+
+  display: grid;
+
+  overflow: hidden;
+
+  > * {
+    padding: 1rem;
+    border: none;
+    font-size: 1rem;
+    outline: none;
+  }
+
+  > :nth-child(1) {
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+}
