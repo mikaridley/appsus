@@ -25,7 +25,7 @@ function query(filterBy = {}) {
     // if (filterBy.pageCount) {
     //   books = books.filter(book => book.pageCount <= filterBy.pageCount)
     // }
-    return notes
+    return notes.reverse()
   })
 }
 

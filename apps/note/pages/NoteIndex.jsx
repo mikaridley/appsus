@@ -23,7 +23,7 @@ export function NoteIndex() {
     noteService
       .query()
       .then(notes => {
-        setNotes(notes.reverse())
+        setNotes(notes)
       })
       .catch(console.log)
   }
@@ -32,7 +32,7 @@ export function NoteIndex() {
     noteService
       .save(note)
       .then(note => {
-        loadNotes()
+        setNotes([...notes, note])
         // showSuccessMsg('Note added!')
       })
       .catch(err => {
