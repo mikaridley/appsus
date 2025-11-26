@@ -1,11 +1,11 @@
-import { NoteHeader } from '../cmps/NoteHeader.jsx'
-import { NoteList } from '../cmps/NoteList.jsx'
-import { NoteSideBar } from '../cmps/NoteSideBar.jsx'
-import { noteService } from '../services/note.service.js'
 import {
   showSuccessMsg,
   showErrorMsg,
 } from '../../../services/event-bus.service.js'
+import { NoteHeader } from '../cmps/NoteHeader.jsx'
+import { NoteList } from '../cmps/NoteList.jsx'
+import { NoteSideBar } from '../cmps/NoteSideBar.jsx'
+import { noteService } from '../services/note.service.js'
 
 const { useState, useEffect } = React
 
