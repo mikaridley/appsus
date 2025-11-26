@@ -1,6 +1,7 @@
 import { mailService } from "../services/mail.service.js"
 import { MailList } from "../cmps/MailList.jsx"
 import { MailDetails } from "../cmps/MailDetails.jsx"
+import { AddMail } from "../cmps/AddMail.jsx"
 import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
 
 const { useState, useEffect } = React
@@ -8,6 +9,7 @@ const { useState, useEffect } = React
 export function MailIndex() {
     const [mails, setMails] = useState(null)
     const [selectedMail, setSelectedMail] = useState(null)
+    const [showAddModal, setShowAddModal] = useState(false)
 
     useEffect(() => {
         loadMails()
@@ -17,6 +19,19 @@ export function MailIndex() {
         mailService.query()
             .then(setMails)
             .catch(console.log)
+    }
+
+    function saveMail(mail) {
+        mailService.save(mail)
+            .then(() => {
+                toggleShowAddModal()
+                loadMails()
+                showSuccessMsg('Sent')
+            })
+            .catch(err => {
+                console.log('err:', err)
+                showErrorMsg('Failed to send Mail')
+            })
     }
 
     function onRemoveMail(ev, mailId) {
@@ -35,6 +50,10 @@ export function MailIndex() {
         setSelectedMail(mailId)
     }
 
+    function toggleShowAddModal() {
+        setShowAddModal(showAddModal => !showAddModal)
+    }
+
     function getUnreadmails() {
         let count = 0
         for (let i = 0; i < mails.length; i++) {
@@ -45,16 +64,13 @@ export function MailIndex() {
 
     if (!mails) return <div>loading...</div>
 
-
     return (
         <section className="mail-index">
             <h2>unread mails: {getUnreadmails()}</h2>
-            {!selectedMail &&
-                <MailList mails={mails} onRemoveMail={onRemoveMail} onSelectMail={onSelectMail} />
-            }
-            {selectedMail &&
-                <MailDetails mailId={selectedMail} />
-            }
+            <button onClick={toggleShowAddModal}>Compose</button>
+            {!selectedMail && <MailList mails={mails} onRemoveMail={onRemoveMail} onSelectMail={onSelectMail} />}
+            {selectedMail && <MailDetails mailId={selectedMail} />}
+            {showAddModal && <AddMail saveMail={saveMail} toggleModal={toggleShowAddModal} />}
         </section>
     )
 }

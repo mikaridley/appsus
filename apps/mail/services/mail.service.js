@@ -4,12 +4,17 @@ import { storageService } from "../../../services/async-storage.service.js";
 const MAIL_KEY = 'mailDB'
 _createMails()
 
+const gLoggedinUser = {
+    email: 'user@appsus.com',
+    fullname: 'Mahatma Appsus'
+}
+
 export const mailService = {
     query,
     get,
     remove,
     save,
-    // getEmptyMail,
+    getEmptyMail,
     // getDefaultFilter,
     // getSearchParams,
 }
@@ -40,19 +45,27 @@ function remove(id) {
 
 function save(mail) {
     if (mail.id) {
+        mail.sentAt = Date.now()
         return storageService.put(MAIL_KEY, mail)
     } else {
         return storageService.post(MAIL_KEY, mail)
     }
 }
 
+function getEmptyMail(subject = '', body = '', sentAt = '', to = '') {
+    return {
+        createdAt: Date.now(),
+        subject,
+        body,
+        isRead: false,
+        sentAt,
+        from: gLoggedinUser.email,
+        to,
+    }
+}
+
 // function getDefaultFilter() {
 //     return { txt: '', maxPrice: '' }
-// }
-
-// function getEmptyMail() {
-//     return {
-//     }
 // }
 
 // function getSearchParams(searchParams) {
