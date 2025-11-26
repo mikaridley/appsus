@@ -7,10 +7,12 @@ import { MailIndex } from './apps/mail/pages/MailIndex.jsx'
 import { NoteIndex } from './apps/note/pages/NoteIndex.jsx'
 import { UserMsg } from './cmps/UserMsg.jsx'
 import { OpenNote } from './apps/note/cmps/OpenNote.jsx'
+import { AppHeader } from './cmps/AppHeader.jsx'
 
 export function App() {
   return (
     <Router>
+      <AppHeader />
       <section className="app">
         <Routes>
           <Route path="/" element={<Home />} />

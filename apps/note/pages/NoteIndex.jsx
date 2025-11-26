@@ -2,7 +2,6 @@ import {
   showSuccessMsg,
   showErrorMsg,
 } from '../../../services/event-bus.service.js'
-import { NoteHeader } from '../cmps/NoteHeader.jsx'
 import { NoteList } from '../cmps/NoteList.jsx'
 import { NoteSideBar } from '../cmps/NoteSideBar.jsx'
 import { OpenNote } from '../cmps/OpenNote.jsx'
@@ -68,7 +67,6 @@ export function NoteIndex() {
 
   return (
     <section className="note-index note-main-layout">
-      <NoteHeader />
       <NoteSideBar />
       <NoteList
         notes={notes}

@@ -1,11 +1,13 @@
 :root {
-    --main-bg-color: lightblue;
+  --main-bg-color: lightblue;
 
-    /* Mail Vars */
-    --mail-bg-clr: #F8FAFD;
-    --mail-bg-clr1: #E9EEF6;
-    --mail-bg-clr2: #F2F6FC;
+  /* Mail Vars */
+  --mail-bg-clr: #f8fafd;
+  --mail-bg-clr1: #e9eef6;
+  --mail-bg-clr2: #f2f6fc;
 
-    --mail-txt-clr-1: #767678;
-    --mail-txt-clr: #202124;
+  --mail-txt-clr-1: #767678;
+  --mail-txt-clr: #202124;
+
+  /* Note Vars */
 }
