@@ -1,4 +1,13 @@
+import { NoteHeader } from '../cmps/NoteHeader.jsx'
+import { NoteList } from '../cmps/NoteList.jsx'
+import { NoteSideBar } from '../cmps/NoteSideBar.jsx'
 
 export function NoteIndex() {
-    return <div>note app</div>
+  return (
+    <section className="note-index note-main-layout">
+      <NoteHeader />
+      <NoteSideBar />
+      <NoteList />
+    </section>
+  )
 }
