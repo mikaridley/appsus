@@ -10,6 +10,7 @@ export const noteService = {
   get,
   remove,
   save,
+  getEmptyNote,
 }
 
 function query(filterBy = {}) {
@@ -39,6 +40,17 @@ function remove(noteId) {
 function save(note) {
   if (note.id) return storageService.put(NOTE_KEY, note)
   else return storageService.post(NOTE_KEY, note)
+}
+
+function getEmptyNote(type = 'NoteTxt') {
+  return {
+    id: '',
+    createdAt: utilService.getRandomTimestamp(),
+    type,
+    isPinned: false,
+    style: { backgroundColor: utilService.getRandomColor() },
+    info: { title: '', txt: '' },
+  }
 }
 
 function _createNotes() {
