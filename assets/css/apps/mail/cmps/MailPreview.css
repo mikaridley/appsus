@@ -4,9 +4,10 @@
     justify-content: space-between;
 
     position: relative;
+    height: 5vh;
 
     padding-inline: 1rem;
-    box-shadow: -1px 1px 0px var(--mail-bg-clr1);
+    box-shadow: 0px -1px 0px var(--mail-bg-clr1);
     cursor: pointer;
 
     &.read {
@@ -18,7 +19,7 @@
     }
 
     &:hover {
-        box-shadow: -1px 1px 5px var(--mail-txt-clr-1);
+        box-shadow: 0px 0px 5px var(--mail-txt-clr-1);
     }
 }
 

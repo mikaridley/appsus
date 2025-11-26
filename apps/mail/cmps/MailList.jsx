@@ -1,6 +1,6 @@
 import { MailPreview } from "./MailPreview.jsx"
 
-export function MailList({ mails, onRemoveMail, onSelectMail }) {
+export function MailList({ mails, onSelectMail, onPutMailToJunk }) {
 
     return (
         <section className="mail-list">
@@ -8,8 +8,7 @@ export function MailList({ mails, onRemoveMail, onSelectMail }) {
             <ul>
                 {mails.map(mail =>
                     <li key={mail.id} onClick={() => onSelectMail(mail.id)}>
-                        <MailPreview mail={mail} />
-                        <button onClick={event => onRemoveMail(event, mail.id)}>Remove</button>
+                        <MailPreview mail={mail} onPutMailToJunk={onPutMailToJunk} />
                     </li>
                 )}
             </ul>

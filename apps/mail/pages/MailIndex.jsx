@@ -35,10 +35,9 @@ export function MailIndex() {
             })
     }
 
-    function onRemoveMail(ev, mailId) {
-        ev.stopPropagation()
-
-        mailService.remove(mailId)
+    function onPutMailToJunk(mail) {
+        mail.removedAt = Date.now()
+        mailService.save(mail)
             .then(() => {
                 setMails(mails =>
                     mails.filter(mail => mail.id !== mailId))
@@ -72,7 +71,11 @@ export function MailIndex() {
                 <p>inbox {getUnreadmails()}</p>
             </nav>
             <main>
-                {!selectedMail && <MailList mails={mails} onRemoveMail={onRemoveMail} onSelectMail={onSelectMail} />}
+                {!selectedMail &&
+                    <MailList mails={mails}
+                        onPutMailToJunk={onPutMailToJunk}
+                        onSelectMail={onSelectMail}
+                    />}
                 {selectedMail && <MailDetails mailId={selectedMail} />}
                 {showAddModal && <AddMail saveMail={saveMail} toggleModal={toggleShowAddModal} />}
             </main>
