@@ -1,4 +1,4 @@
-import { AppHeader } from './cmps/AppHeader.jsx'
+import { AppHeader } from '../cmps/AppHeader.jsx'
 
 export function Home() {
   return (
