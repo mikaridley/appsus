@@ -9,6 +9,7 @@ export function AddNote({ saveNote }) {
   function onSaveNote(ev) {
     ev.preventDefault()
     saveNote(noteToAdd)
+    toggleFullAddNote()
   }
 
   function toggleFullAddNote() {
@@ -55,7 +56,7 @@ export function AddNote({ saveNote }) {
               onChange={handleChange}
               type="text"
               placeholder="Take a note..."
-              name="text"
+              name="txt"
             />
             <button style={{ display: 'none' }} />
           </div>

@@ -14,13 +14,13 @@ export function NoteIndex() {
 
   useEffect(() => {
     loadNotes()
-  }, [notes])
+  }, [])
 
   function loadNotes() {
     noteService
       .query()
       .then(notes => {
-        setNotes(notes)
+        setNotes(notes.reverse())
         console.log(notes)
       })
       .catch(console.log)
@@ -30,12 +30,25 @@ export function NoteIndex() {
     noteService
       .save(note)
       .then(note => {
-        console.log(note)
-        // showSuccessMsg('Note added!')
+        loadNotes()
+        showSuccessMsg('Note added!')
       })
       .catch(err => {
         console.log('err:', err)
-        // showErrorMsg('Problem adding note')
+        showErrorMsg('Problem adding note')
+      })
+  }
+
+  function removeNote(noteId) {
+    noteService
+      .remove(noteId)
+      .then(() => {
+        setNotes(notes => notes.filter(note => note.id !== noteId))
+        showSuccessMsg(`Note removed successfully`)
+      })
+      .catch(err => {
+        console.log('err:', err)
+        showErrorMsg('Cannot remove note')
       })
   }
 
@@ -43,7 +56,7 @@ export function NoteIndex() {
     <section className="note-index note-main-layout">
       <NoteHeader />
       <NoteSideBar />
-      <NoteList notes={notes} saveNote={saveNote} />
+      <NoteList notes={notes} saveNote={saveNote} removeNote={removeNote} />
     </section>
   )
 }
