@@ -7,7 +7,7 @@ export const demoNotes = [
     type: 'NoteTxt',
     isPinned: true,
     style: { backgroundColor: '#ffadad' },
-    info: { txt: 'Groceries: milk, bread, coffee' },
+    info: { title: 'Shopping List', txt: 'Groceries: milk, bread, coffee' },
   },
   {
     id: utilService.makeId(4),
@@ -15,7 +15,7 @@ export const demoNotes = [
     type: 'NoteTxt',
     isPinned: true,
     style: { backgroundColor: '#ffd6a5' },
-    info: { txt: 'Workout plan for today' },
+    info: { title: 'Workout', txt: 'Workout plan for today' },
   },
   {
     id: utilService.makeId(4),
@@ -23,7 +23,7 @@ export const demoNotes = [
     type: 'NoteTxt',
     isPinned: true,
     style: { backgroundColor: '#fdffb6' },
-    info: { txt: 'Remember Mom’s birthday' },
+    info: { title: 'Birthday Reminder', txt: 'Remember Mom’s birthday' },
   },
   {
     id: utilService.makeId(4),
@@ -31,7 +31,7 @@ export const demoNotes = [
     type: 'NoteTxt',
     isPinned: true,
     style: { backgroundColor: '#caffbf' },
-    info: { txt: 'Fix the login bug' },
+    info: { title: 'Bug Fix', txt: 'Fix the login bug' },
   },
   {
     id: utilService.makeId(4),
@@ -39,7 +39,7 @@ export const demoNotes = [
     type: 'NoteTxt',
     isPinned: true,
     style: { backgroundColor: '#9bf6ff' },
-    info: { txt: 'Plan next week’s tasks' },
+    info: { title: 'Weekly Plan', txt: 'Plan next week’s tasks' },
   },
 
   // --- 15 unpinned ---
@@ -49,7 +49,7 @@ export const demoNotes = [
     type: 'NoteTxt',
     isPinned: false,
     style: { backgroundColor: '#a0c4ff' },
-    info: { txt: 'Buy dog food' },
+    info: { title: 'Pet Care', txt: 'Buy dog food' },
   },
   {
     id: utilService.makeId(4),
@@ -57,7 +57,7 @@ export const demoNotes = [
     type: 'NoteTxt',
     isPinned: false,
     style: { backgroundColor: '#bdb2ff' },
-    info: { txt: 'Learn Flexbox' },
+    info: { title: 'Study', txt: 'Learn Flexbox' },
   },
   {
     id: utilService.makeId(4),
@@ -65,7 +65,7 @@ export const demoNotes = [
     type: 'NoteTxt',
     isPinned: false,
     style: { backgroundColor: '#ffc6ff' },
-    info: { txt: 'Meeting at 14:00' },
+    info: { title: 'Meeting', txt: 'Meeting at 14:00' },
   },
   {
     id: utilService.makeId(4),
@@ -73,7 +73,7 @@ export const demoNotes = [
     type: 'NoteTxt',
     isPinned: false,
     style: { backgroundColor: '#ffadad' },
-    info: { txt: 'Clean the house' },
+    info: { title: 'Chores', txt: 'Clean the house' },
   },
   {
     id: utilService.makeId(4),
@@ -81,7 +81,7 @@ export const demoNotes = [
     type: 'NoteTxt',
     isPinned: false,
     style: { backgroundColor: '#ffd6a5' },
-    info: { txt: 'Watch JS tutorial' },
+    info: { title: 'Learning', txt: 'Watch JS tutorial' },
   },
 
   {
@@ -90,7 +90,7 @@ export const demoNotes = [
     type: 'NoteTxt',
     isPinned: false,
     style: { backgroundColor: '#fdffb6' },
-    info: { txt: 'Pay electricity bill' },
+    info: { title: 'Bills', txt: 'Pay electricity bill' },
   },
   {
     id: utilService.makeId(4),
@@ -98,7 +98,7 @@ export const demoNotes = [
     type: 'NoteTxt',
     isPinned: false,
     style: { backgroundColor: '#caffbf' },
-    info: { txt: 'Book dentist appointment' },
+    info: { title: 'Health', txt: 'Book dentist appointment' },
   },
   {
     id: utilService.makeId(4),
@@ -106,7 +106,7 @@ export const demoNotes = [
     type: 'NoteTxt',
     isPinned: false,
     style: { backgroundColor: '#9bf6ff' },
-    info: { txt: 'Ideas for new project' },
+    info: { title: 'Project Ideas', txt: 'Ideas for new project' },
   },
   {
     id: utilService.makeId(4),
@@ -114,7 +114,7 @@ export const demoNotes = [
     type: 'NoteTxt',
     isPinned: false,
     style: { backgroundColor: '#a0c4ff' },
-    info: { txt: 'Meditation for 10 min' },
+    info: { title: 'Mindfulness', txt: 'Meditation for 10 min' },
   },
   {
     id: utilService.makeId(4),
@@ -122,7 +122,7 @@ export const demoNotes = [
     type: 'NoteTxt',
     isPinned: false,
     style: { backgroundColor: '#bdb2ff' },
-    info: { txt: 'Call Grandma' },
+    info: { title: 'Family', txt: 'Call Grandma' },
   },
 
   {
@@ -131,7 +131,7 @@ export const demoNotes = [
     type: 'NoteTxt',
     isPinned: false,
     style: { backgroundColor: '#ffc6ff' },
-    info: { txt: 'Fix CSS alignment' },
+    info: { title: 'CSS Fix', txt: 'Fix CSS alignment' },
   },
   {
     id: utilService.makeId(4),
@@ -139,7 +139,7 @@ export const demoNotes = [
     type: 'NoteTxt',
     isPinned: false,
     style: { backgroundColor: '#ffadad' },
-    info: { txt: 'Finish reading chapter 3' },
+    info: { title: 'Reading', txt: 'Finish reading chapter 3' },
   },
   {
     id: utilService.makeId(4),
@@ -147,7 +147,7 @@ export const demoNotes = [
     type: 'NoteTxt',
     isPinned: false,
     style: { backgroundColor: '#ffd6a5' },
-    info: { txt: 'Water the plants' },
+    info: { title: 'Plants', txt: 'Water the plants' },
   },
   {
     id: utilService.makeId(4),
@@ -155,7 +155,7 @@ export const demoNotes = [
     type: 'NoteTxt',
     isPinned: false,
     style: { backgroundColor: '#fdffb6' },
-    info: { txt: 'Organize the closet' },
+    info: { title: 'Organization', txt: 'Organize the closet' },
   },
   {
     id: utilService.makeId(4),
@@ -163,6 +163,6 @@ export const demoNotes = [
     type: 'NoteTxt',
     isPinned: false,
     style: { backgroundColor: '#caffbf' },
-    info: { txt: 'Try new recipe' },
+    info: { title: 'Cooking', txt: 'Try new recipe' },
   },
 ]

@@ -46,6 +46,5 @@ function _createNotes() {
   if (!notes || !notes.length) {
     notes = demoNotes
     utilService.saveToStorage(NOTE_KEY, notes)
-    console.log(notes)
   }
 }
