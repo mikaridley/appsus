@@ -9,7 +9,7 @@ export function MailList({ mails, onRemoveMail, onSelectMail }) {
                 {mails.map(mail =>
                     <li key={mail.id} onClick={() => onSelectMail(mail.id)}>
                         <MailPreview mail={mail} />
-                        <button onClick={() => onRemoveMail(mail.id)}>Remove</button>
+                        <button onClick={event => onRemoveMail(event, mail.id)}>Remove</button>
                     </li>
                 )}
             </ul>

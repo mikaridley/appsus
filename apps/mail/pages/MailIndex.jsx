@@ -18,13 +18,16 @@ export function MailIndex() {
             .catch(console.log)
     }
 
-    function onRemoveMail(mailId) {
+    function onRemoveMail(ev, mailId) {
+        ev.stopPropagation()
+
         mailService.remove(mailId)
             .then(() => {
                 setMails(mails =>
                     mails.filter(mail => mail.id !== mailId))
+                showSuccessMsg('Deleted')
             })
-            .catch(console.log)
+            .catch(() => showErrorMsg('failed to delete'))
     }
 
     function onSelectMail(mailId) {

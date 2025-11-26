@@ -3,6 +3,8 @@
     align-items: center;
     justify-content: space-between;
 
+    position: relative;
+
     padding-inline: 1rem;
     box-shadow: -1px 1px 0px var(--mail-bg-clr1);
     cursor: pointer;
@@ -18,4 +20,9 @@
     &:hover {
         box-shadow: -1px 1px 5px var(--mail-txt-clr-1);
     }
+}
+
+.long-txt{
+    position: absolute;
+    left: 20%
 }

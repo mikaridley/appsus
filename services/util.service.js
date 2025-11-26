@@ -9,7 +9,8 @@ export const utilService = {
   loadFromStorage,
   saveToStorage,
   getRandomTimestamp,
-  getMonthNameShort
+  getMonthNameShort,
+  getUserName,
 }
 
 function saveToStorage(key, val) {
@@ -125,7 +126,11 @@ function getRandomTimestamp(rangeMs = 7 * 24 * 60 * 60 * 1000) {
   return now - randomOffset
 }
 
-
 function getMonthNameShort(date) {
   return date.toLocaleString('default', { month: 'short' })
+}
+
+function getUserName(mailFrom) {
+  const idx = mailFrom.indexOf('@')
+  if (idx !== -1) return mailFrom.substring(0, idx)
 }
