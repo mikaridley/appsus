@@ -1,3 +1,4 @@
+import { Loader } from '../../../cmps/Loader.jsx'
 import {
   showSuccessMsg,
   showErrorMsg,
@@ -65,6 +66,7 @@ export function NoteIndex() {
     setNotes([...notes])
   }
 
+  if (!notes.length) return <Loader />
   return (
     <section className="note-index note-main-layout">
       <NoteSideBar />

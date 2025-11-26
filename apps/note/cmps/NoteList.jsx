@@ -7,6 +7,7 @@ export function NoteList({ notes, saveNote, removeNote, toggleTodo }) {
   return (
     <section className="note-list">
       <AddNote saveNote={saveNote} />
+
       <NotePreview
         notes={notes}
         removeNote={removeNote}
