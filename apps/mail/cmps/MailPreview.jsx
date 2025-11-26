@@ -1,17 +1,21 @@
 import { utilService } from "../../../services/util.service.js"
+import { LongTxt } from "../../../cmps/LongTxt.jsx"
 
 export function MailPreview({ mail }) {
     const { from, subject, body, sentAt, isRead } = mail
 
+    const userName = utilService.getUserName(from)
+
     const date = new Date(sentAt)
     const month = utilService.getMonthNameShort(date)
     const day = date.getDate()
+
     const classRead = isRead ? 'read' : ''
 
     return (
         <article className={`mail-preview ${classRead}`}>
-            <h3>{from}</h3>
-            <p><strong>{subject} </strong>- {body}</p>
+            <h3>{userName}</h3>
+            <LongTxt txt={`${subject} - ${body}`} length={140} />
             <p>{day} {month}</p>
         </article>
     )
