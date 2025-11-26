@@ -25,7 +25,7 @@ function query(filterBy = {}) {
     // if (filterBy.pageCount) {
     //   books = books.filter(book => book.pageCount <= filterBy.pageCount)
     // }
-    return notes
+    return notes.reverse()
   })
 }
 
@@ -42,7 +42,7 @@ function save(note) {
   else return storageService.post(NOTE_KEY, note)
 }
 
-function getEmptyNote(type = 'NoteTxt') {
+function getEmptyNote(type = 'text') {
   return {
     id: '',
     createdAt: utilService.getRandomTimestamp(),

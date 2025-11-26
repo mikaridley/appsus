@@ -28,6 +28,7 @@ export function MailDetails({ mailId }) {
             <h1>{subject}</h1>
             <h3>{from}</h3>
             <p>{body}</p>
+
         </section>
     )
 }

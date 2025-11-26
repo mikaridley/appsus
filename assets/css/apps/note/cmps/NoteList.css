@@ -69,3 +69,16 @@
     font-size: 1.5rem;
   }
 }
+
+.note-todo {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.doto-done {
+  text-decoration: line-through;
+}
+
+.note-photo {
+}

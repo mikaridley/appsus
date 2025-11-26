@@ -1,3 +1,4 @@
 .note-side-bar {
   background-color: beige;
+  grid-row: span 2;
 }
