@@ -54,11 +54,28 @@ export function NoteIndex() {
       })
   }
 
+  function toggleTodo(todoId) {
+    const todoNote = notes.filter(note => note.type === 'todo')
+    const allTodos = todoNote.flatMap(note => note.info.todos)
+    const todo = allTodos.find(todo => todo.id === todoId)
+
+    if (!todo) return
+
+    todo.isDone = !todo.isDone
+
+    setNotes([...notes])
+  }
+
   return (
     <section className="note-index note-main-layout">
       <NoteHeader />
       <NoteSideBar />
-      <NoteList notes={notes} saveNote={saveNote} removeNote={removeNote} />
+      <NoteList
+        notes={notes}
+        saveNote={saveNote}
+        removeNote={removeNote}
+        toggleTodo={toggleTodo}
+      />
       <Outlet />
     </section>
   )
