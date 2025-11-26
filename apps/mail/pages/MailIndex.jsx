@@ -35,10 +35,20 @@ export function MailIndex() {
         setSelectedMail(mailId)
     }
 
+    function getUnreadmails() {
+        let count = 0
+        for (let i = 0; i < mails.length; i++) {
+            if (!mails[i].isRead) count++
+        }
+        return count
+    }
+
     if (!mails) return <div>loading...</div>
+
 
     return (
         <section className="mail-index">
+            <h2>unread mails: {getUnreadmails()}</h2>
             {!selectedMail &&
                 <MailList mails={mails} onRemoveMail={onRemoveMail} onSelectMail={onSelectMail} />
             }
