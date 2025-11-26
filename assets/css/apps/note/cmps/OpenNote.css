@@ -1,0 +1,18 @@
+.open-note {
+  background-color: brown;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}
+
+.note-black-screen {
+  background-color: rgba(0, 0, 0, 0.409);
+
+  width: 100vw;
+  height: 100vh;
+
+  position: fixed;
+  top: 0;
+}
