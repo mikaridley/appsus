@@ -1,6 +1,7 @@
 import { PhotoNote } from './PhotoNote.jsx'
 import { TextNote } from './TextNote.jsx'
 import { TodoNote } from './TodoNote.jsx'
+import { Loader } from '../../../cmps/Loader.jsx'
 
 const { Link } = ReactRouterDOM
 const { useState } = React
@@ -9,7 +10,7 @@ export function NotePreview({ notes, removeNote, toggleTodo }) {
   function onRemoveNote(id) {
     removeNote(id)
   }
-
+  if (!notes.length) return <Loader />
   return (
     <section className="notes-container">
       {notes.map(({ id, info, type }) => {
