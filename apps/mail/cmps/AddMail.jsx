@@ -29,7 +29,7 @@ export function AddMail({ saveMail, toggleModal }) {
     return (
         <form className="add-mail flex column" onSubmit={event => onSaveMail(event, mailToAdd)}>
             <section className="flex space-between">
-                <h2>New Message</h2>
+                <p>New Message</p>
                 <button type="button" onClick={toggleModal}>x</button>
             </section>
 

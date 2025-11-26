@@ -6,13 +6,17 @@
     bottom: 10px;
     right: 5vw;
 
-    padding: 1rem;
     width: 35vw;
     height: 70vh;
+    padding-inline: 1rem;
 
-    >section{
-        >button{
-            background-color: white;
+    border-radius: .3em;
+    box-shadow: 0px 0px 20px 0px var(--mail-txt-clr-1);
+    font-weight: bold;
+
+    >section {
+        >button {
+            background-color: inherit;
             border: none;
             font-size: 1.2em;
         }
@@ -26,7 +30,9 @@
 
     >label {
         height: 100%;
-        >input{
+        cursor: text;
+
+        >input {
             border: none;
         }
     }
@@ -43,7 +49,7 @@
         color: white;
         font-weight: bold;
 
-        &:hover{
+        &:hover {
             background-color: #3f89ea;
             box-shadow: 0px 0px 1px 1px #297BE6;
         }
@@ -54,4 +60,3 @@
     }
 
 }
-

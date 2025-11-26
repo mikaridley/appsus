@@ -3,6 +3,7 @@ import { MailList } from "../cmps/MailList.jsx"
 import { MailDetails } from "../cmps/MailDetails.jsx"
 import { AddMail } from "../cmps/AddMail.jsx"
 import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
+import { Loader } from '../../../cmps/Loader.jsx'
 
 const { useState, useEffect } = React
 
@@ -62,15 +63,19 @@ export function MailIndex() {
         return count
     }
 
-    if (!mails) return <div>loading...</div>
+    if (!mails) return <Loader />
 
     return (
-        <section className="mail-index">
-            <h2>unread mails: {getUnreadmails()}</h2>
-            <button onClick={toggleShowAddModal}>Compose</button>
-            {!selectedMail && <MailList mails={mails} onRemoveMail={onRemoveMail} onSelectMail={onSelectMail} />}
-            {selectedMail && <MailDetails mailId={selectedMail} />}
-            {showAddModal && <AddMail saveMail={saveMail} toggleModal={toggleShowAddModal} />}
+        <section className="mail-index flex space-between">
+            <nav>
+                <button onClick={toggleShowAddModal}>Compose</button>
+                <p>inbox {getUnreadmails()}</p>
+            </nav>
+            <main>
+                {!selectedMail && <MailList mails={mails} onRemoveMail={onRemoveMail} onSelectMail={onSelectMail} />}
+                {selectedMail && <MailDetails mailId={selectedMail} />}
+                {showAddModal && <AddMail saveMail={saveMail} toggleModal={toggleShowAddModal} />}
+            </main>
         </section>
     )
 }
