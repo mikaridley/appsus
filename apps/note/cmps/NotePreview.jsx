@@ -1,4 +1,8 @@
+import { PhotoNote } from './PhotoNote.jsx'
+import { TextNote } from './TextNote.jsx'
+
 const { Link } = ReactRouterDOM
+const { useState } = React
 
 export function NotePreview({ notes, removeNote }) {
   function onRemoveNote(id) {
@@ -7,12 +11,12 @@ export function NotePreview({ notes, removeNote }) {
 
   return (
     <section className="notes-container">
-      {notes.map(({ id, info }) => {
+      {notes.map(({ id, info, type }) => {
+        console.log(type)
         return (
           <div key={id} className="note">
             <Link to={`/note/${id}`}>
-              <h2 className="note-title">{info.title}</h2>
-              <p>{info.txt}</p>
+              <DynamicCmp cmpType={type} info={info} />
             </Link>
             <div className="note-icons">
               <img
@@ -20,7 +24,7 @@ export function NotePreview({ notes, removeNote }) {
                   ev.stopPropagation()
                   onRemoveNote(id)
                 }}
-                src="../../../assets/img/note/Delete.png"
+                src="assets/img/note/Delete.png"
               />
             </div>
           </div>
@@ -28,4 +32,13 @@ export function NotePreview({ notes, removeNote }) {
       })}
     </section>
   )
+}
+
+function DynamicCmp(props) {
+  const dynamicCmpMap = {
+    text: <TextNote {...props} />,
+    photo: <PhotoNote {...props} />,
+    // todo: <TodoNote {...props} />,
+  }
+  return dynamicCmpMap[props.cmpType]
 }
