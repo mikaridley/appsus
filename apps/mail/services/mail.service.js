@@ -9,7 +9,7 @@ export const mailService = {
     get,
     remove,
     save,
-    getEmptyMail,
+    // getEmptyMail,
     // getDefaultFilter,
     // getSearchParams,
 }
@@ -50,16 +50,10 @@ function save(mail) {
 //     return { txt: '', maxPrice: '' }
 // }
 
-function getEmptyMail(title = '', price = '') {
-    return {
-        title,
-        listPrice: {
-            amount: price,
-            currencyCode: "EUR",
-            isOnSale: false
-        }
-    }
-}
+// function getEmptyMail() {
+//     return {
+//     }
+// }
 
 // function getSearchParams(searchParams) {
 //     const txt = searchParams.get('txt') || ''
@@ -84,23 +78,23 @@ function _setNextPrevMailId(mail) {
 function _createMails() {
     const mails = utilService.loadFromStorage(MAIL_KEY) || []
     if (!mails || !mails.length) {
-        mails.push(_createMail())
-        mails.push(_createMail())
-        mails.push(_createMail())
+        mails.push(_createMail('puki@gmail.com'))
+        mails.push(_createMail('shuki@gmail.com'))
+        mails.push(_createMail('muki@gmail.com'))
     }
     utilService.saveToStorage(MAIL_KEY, mails)
 }
 
-function _createMail() {
+function _createMail(from) {
     return {
         id: utilService.makeId(),
-        createdAt: new Date(),
+        createdAt: Date.now(),
         subject: 'Miss you!',
         body: 'Would love to catch up sometimes',
-        isRead: false,
-        sentAt: new Date(),
+        isRead: Math.random() > 0.5,
+        sentAt: Date.now(),
         removedAt: null,
-        from: 'momo@momo.com',
+        from,
         to: 'user@appsus.com'
     }
 }
