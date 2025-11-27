@@ -30,7 +30,7 @@ export function NoteIndex() {
     noteService
       .save(note)
       .then(note => {
-        setNotes([...notes, note])
+        setNotes([note, ...notes])
         showSuccessMsg('Note added!')
       })
       .catch(err => {
