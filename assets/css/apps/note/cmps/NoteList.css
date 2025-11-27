@@ -1,11 +1,19 @@
 .note-list {
   padding: 1rem;
+
+  .note-list-header {
+    padding: 1rem;
+
+    letter-spacing: 1px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--clr-note-text-1);
+  }
 }
 
 .notes-container {
   justify-self: center;
 
-  max-width: 1500px;
   padding: 1rem;
 
   column-count: 5;
@@ -15,7 +23,7 @@
 .note {
   width: 100%;
   margin-bottom: 0.7rem;
-  padding: 1rem;
+  padding: 0.7rem;
   border-radius: 8px;
   border: 1px solid #dadce0;
 
@@ -26,9 +34,26 @@
   display: inline-block;
 
   > .note-icons {
+    display: flex;
+    gap: 5%;
+
     > img {
-      width: 15px;
+      width: 20px;
       cursor: pointer;
+
+      &:hover {
+        background-color: rgba(174, 174, 174, 0.254);
+        border-radius: 50%;
+        box-shadow: 0 0 0 6px rgba(174, 174, 174, 0.254);
+      }
+    }
+  }
+
+  .note-header {
+    display: flex;
+    justify-content: space-between;
+    > img {
+      width: 25px;
     }
   }
 }
@@ -93,11 +118,4 @@
       border: 1px, solid rgba(0, 0, 0, 0.649);
     }
   }
-}
-
-.note-list-header {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  color: var(--clr-note-text-1);
-  padding: 1rem;
 }

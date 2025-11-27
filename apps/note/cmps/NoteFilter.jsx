@@ -34,10 +34,7 @@ export function NoteFilter({ defaultFilter, onSetFilter }) {
   return (
     <section className="note-filter">
       <form>
-        <img
-          className="search-icon"
-          src="assets/img/note/magnifying-glass.svg"
-        />
+        <img className="search-icon" src="assets/img/note/search.png" />
         <input
           className="note-txt-filter"
           onChange={handleChange}
