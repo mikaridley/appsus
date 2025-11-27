@@ -25,8 +25,15 @@ export function NoteIndex() {
   function saveNote(note) {
     noteService
       .save(note)
-      .then(note => {
-        setNotes([note, ...notes])
+      .then(savedNote => {
+        setNotes(
+          prevNotes =>
+            prevNotes.some(currNote => currNote.id === savedNote.id)
+              ? prevNotes.map(note =>
+                  note.id === savedNote.id ? savedNote : note
+                ) // update
+              : [savedNote, ...prevNotes] // add
+        )
         showSuccessMsg('Note added!')
       })
       .catch(err => {
@@ -107,7 +114,7 @@ export function NoteIndex() {
         defaultFilter={filterBy}
         onSetFilter={onSetFilter}
       />
-      <Outlet />
+      <Outlet context={{ saveNote }} />
     </section>
   )
 }

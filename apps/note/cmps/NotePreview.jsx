@@ -14,7 +14,7 @@ export function NotePreview({
   if (!notes.length) return <Loader />
   return (
     <React.Fragment>
-      <h1>Pinned</h1>
+      <h1 className="note-list-header">Pinned</h1>
       <NoteContent
         toggleTodo={toggleTodo}
         paintNote={paintNote}
@@ -22,7 +22,7 @@ export function NotePreview({
         removeNote={removeNote}
         pinNote={pinNote}
       />
-      <h1>Others</h1>
+      <h1 className="note-list-header">Others</h1>
       <NoteContent
         toggleTodo={toggleTodo}
         paintNote={paintNote}

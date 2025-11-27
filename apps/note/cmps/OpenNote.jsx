@@ -1,12 +1,14 @@
 import { noteService } from '../services/note.service.js'
+import { Loader } from '../../../cmps/Loader.jsx'
 
-const { useParams, useNavigate, Link } = ReactRouterDOM
+const { useParams, useNavigate, useOutletContext } = ReactRouterDOM
 const { useState, useEffect } = React
 
 export function OpenNote() {
   const { noteId } = useParams()
   const [note, setNote] = useState(null)
   const navigate = useNavigate()
+  const { saveNote } = useOutletContext()
 
   useEffect(() => {
     loadNote()
@@ -20,12 +22,97 @@ export function OpenNote() {
     navigate('/note')
   }
 
-  if (!note) return <div>Loading...</div>
+  function onSaveNote(ev) {
+    ev.preventDefault()
+    saveNote(note)
+    onBack()
+  }
+
+  function handleChange({ target }) {
+    const field = target.name
+    let value = target.value
+    switch (target.type) {
+      case 'number':
+      case 'range':
+        value = +value
+        break
+
+      case 'checkbox':
+        value = target.checked
+        break
+    }
+    setNote(prevNote => ({
+      ...prevNote,
+      info: { ...prevNote.info, [field]: value },
+    }))
+  }
+
+  function handleTodoChange({ target }) {
+    const todoId = target.name
+    let value = target.value
+
+    setNote(prevNote => {
+      const todos = prevNote.info.todos.map(todo =>
+        todo.id === todoId ? { ...todo, txt: value } : todo
+      )
+
+      return {
+        ...prevNote,
+        info: { ...prevNote.info, todos },
+      }
+    })
+  }
+  if (!note) return
   return (
     <div onClick={onBack} className="note-black-screen">
-      <div onClick={ev => ev.stopPropagation()} className="open-note">
-        <h1>{note.id}</h1>
-      </div>
+      <form onSubmit={onSaveNote} onClick={ev => ev.stopPropagation()}>
+        <div className="full-note-input open-note">
+          <input
+            onChange={handleChange}
+            type="text"
+            placeholder="Title"
+            name="title"
+            value={note.info.title}
+          />
+          {note.type === 'text' && (
+            <input
+              onChange={handleChange}
+              type="text"
+              placeholder="Take a note..."
+              name="txt"
+              value={note.info.txt}
+            />
+          )}
+          {note.type === 'photo' && (
+            <img className="max-height " src={note.info.url} />
+          )}
+          {note.type === 'todo' && (
+            <div className="todo-input-container">
+              <ul className="todo-preview">
+                {note.info.todos.map((todo, idx) => (
+                  <li key={todo.id}>
+                    <input
+                      name={todo.id}
+                      onChange={handleTodoChange}
+                      className="todo-input"
+                      type="text"
+                      placeholder="Add a todo..."
+                      value={todo.txt}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {note.type === 'video' && (
+            <video className="video-input max-height " controls>
+              <source src={note.info.url} type="video/mp4" />
+            </video>
+          )}
+
+          <button style={{ display: 'none' }} />
+        </div>
+      </form>
     </div>
   )
 }
