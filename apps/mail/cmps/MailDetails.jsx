@@ -2,11 +2,12 @@ import { mailService } from "../services/mail.service.js"
 import { Loader } from "../../../cmps/Loader.jsx"
 
 const { useState, useEffect } = React
-const { useParams, Link } = ReactRouterDOM
+const { useParams, Link, useOutletContext } = ReactRouterDOM
 
 export function MailDetails() {
     const [mail, setMail] = useState(null)
     const { mailId } = useParams()
+    const onToggleRead = useOutletContext()
 
     useEffect(() => {
         loadMail()
@@ -20,10 +21,7 @@ export function MailDetails() {
 
     if (!mail) return <Loader />
 
-    if (!mail.isRead) {
-        mail.isRead = true
-        mailService.save(mail)
-    }
+    if (!mail.isRead) onToggleRead(mail)
 
     const { from, subject, body, sentAt } = mail
     return (
