@@ -1,4 +1,5 @@
 import { mailService } from "../services/mail.service.js"
+import { SideNav } from "../cmps/SideNav.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { AddMail } from "../cmps/AddMail.jsx"
 import { MailFilter } from "../cmps/MailFilter.jsx"
@@ -14,13 +15,9 @@ export function MailIndex() {
     const [filterBy, setFilterBy] = useState({ nav: 'inbox' })
     const { mailId } = useParams()
 
-    const [unreadCount, setUnreadCount] = useState()
-    mailService.getUnreadMails().then(setUnreadCount)
-
     useEffect(() => {
         loadMails()
     }, [filterBy])
-
 
     function loadMails() {
         mailService.query(filterBy)
@@ -98,14 +95,7 @@ export function MailIndex() {
     return (
         <section className="mail-index flex space-between">
             <MailFilter onSetFilterBy={onSetFilterBy} />
-            <nav>
-                <button onClick={onOpenModal}>Compose</button>
-                <p onClick={() => setFilterBy({ nav: 'inbox' })}>Inbox {unreadCount}</p>
-                <p onClick={() => setFilterBy({ nav: 'starred' })}>Starred</p>
-                <p onClick={() => setFilterBy({ nav: 'sent' })}>Sent</p>
-                <p onClick={() => setFilterBy({ nav: 'draft' })}>Drafts</p>
-                <p onClick={() => setFilterBy({ nav: 'trash' })}>Trash</p>
-            </nav>
+            <SideNav onOpenModal={onOpenModal} setFilterBy={setFilterBy} />
             <main>
                 {!mailId &&
                     <MailList mails={mails}
