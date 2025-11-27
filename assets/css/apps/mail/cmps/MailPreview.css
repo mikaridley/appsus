@@ -10,6 +10,16 @@
     box-shadow: 0px -1px 0px var(--mail-bg-clr1);
     cursor: pointer;
 
+    >h3 {
+        position: absolute;
+        left: 3rem;
+    }
+
+    section {
+        gap: 1rem;
+        padding-inline: 1rem;
+    }
+
     &.read {
         background-color: var(--mail-bg-clr2);
 
@@ -27,21 +37,12 @@
     position: absolute;
     width: 50vw;
     padding-inline-end: 1rem;
-    left: 20vw;
+    left: 15vw;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-section {
-    gap: 1rem;
-    padding-inline: 1rem;
-}
-
-h3 {
-    position: absolute;
-    left: 3rem;
-}
 
 .fa-solid.fa-star {
     color: gold;
