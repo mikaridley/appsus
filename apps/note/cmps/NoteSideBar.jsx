@@ -15,11 +15,11 @@ export function NoteSideBar() {
         onClick={onNotePage}
         className={`side-bar-row ${activePage === 'notes' ? 'active' : ''}`}
       >
-        <img src="assets/img/note/Default.png" />
+        <img src="assets/img/note/light-bulb.svg" />
         <p>Notes</p>
       </div>
       <div className="side-bar-row">
-        <img src="assets/img/note/Default.png" />
+        <img src="assets/img/note/bin.svg" />
         <p>Bin</p>
       </div>
     </section>
