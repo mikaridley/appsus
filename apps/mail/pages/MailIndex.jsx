@@ -11,21 +11,25 @@ const { Outlet, useParams } = ReactRouterDOM
 export function MailIndex() {
     const [mails, setMails] = useState(null)
     const [showAddModal, setShowAddModal] = useState(false)
-    const [unreadCount, setUnreadCount] = useState()
     const [filterBy, setFilterBy] = useState({ nav: 'inbox' })
-
     const { mailId } = useParams()
+
+    const [unreadCount, setUnreadCount] = useState()
+    mailService.getUnreadMails().then(setUnreadCount)
 
     useEffect(() => {
         loadMails()
     }, [filterBy])
 
-    mailService.getUnreadMails().then(setUnreadCount)
 
     function loadMails() {
         mailService.query(filterBy)
             .then(setMails)
             .catch(console.log)
+    }
+
+    function onSetFilterBy(filterByToEdit) {
+        setFilterBy(prevFilter => ({ ...prevFilter, ...filterByToEdit }))
     }
 
     function saveMail(mail) {
@@ -43,6 +47,7 @@ export function MailIndex() {
 
     function onRemoveMail(ev, mail) {
         ev.preventDefault()
+        ev.stopPropagation()
 
         const mailId = mail.id
         const newMails = mail.removedAt ? mailService.remove(mailId) : mailService.save(mail)
@@ -56,7 +61,7 @@ export function MailIndex() {
             .catch(() => showErrorMsg('failed to delete'))
     }
 
-    function openAddModal() {
+    function onOpenModal() {
         setShowAddModal(true)
     }
 
@@ -78,8 +83,14 @@ export function MailIndex() {
             })
     }
 
-    function onSetFilterBy(filterByToEdit) {
-        setFilterBy(prevFilter => ({ ...prevFilter, ...filterByToEdit }))
+    function onToggleStar(mail, ev = null) {
+        ev.preventDefault()
+
+        mail.isStarred = !mail.isStarred
+        mailService.save(mail)
+            .then(savedMail => {
+                setMails(mails.map(mail => mail.id === saveMail.id ? savedMail : mail))
+            })
     }
 
     if (!mails) return <Loader />
@@ -88,20 +99,25 @@ export function MailIndex() {
         <section className="mail-index flex space-between">
             <MailFilter onSetFilterBy={onSetFilterBy} />
             <nav>
-                <button onClick={openAddModal}>Compose</button>
+                <button onClick={onOpenModal}>Compose</button>
                 <p onClick={() => setFilterBy({ nav: 'inbox' })}>Inbox {unreadCount}</p>
+                <p onClick={() => setFilterBy({ nav: 'starred' })}>Starred</p>
                 <p onClick={() => setFilterBy({ nav: 'sent' })}>Sent</p>
-                <p onClick={() => setFilterBy({ nav: 'trash' })}>Trash</p>
                 <p onClick={() => setFilterBy({ nav: 'draft' })}>Drafts</p>
+                <p onClick={() => setFilterBy({ nav: 'trash' })}>Trash</p>
             </nav>
             <main>
                 {!mailId &&
                     <MailList mails={mails}
                         onRemoveMail={onRemoveMail}
                         onToggleRead={onToggleRead}
+                        onToggleStar={onToggleStar}
                     />}
                 <Outlet context={onToggleRead} />
-                {showAddModal && <AddMail saveMail={saveMail} onCloseModal={onCloseModal} />}
+                {showAddModal &&
+                    <AddMail saveMail={saveMail}
+                        onCloseModal={onCloseModal}
+                    />}
             </main>
         </section>
     )

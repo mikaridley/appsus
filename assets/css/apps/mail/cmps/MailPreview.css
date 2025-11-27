@@ -23,7 +23,26 @@
     }
 }
 
-.long-txt{
+.content {
     position: absolute;
-    left: 20%
+    width: 50vw;
+    padding-inline-end: 1rem;
+    left: 20vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+section {
+    gap: 1rem;
+    padding-inline: 1rem;
+}
+
+h3 {
+    position: absolute;
+    left: 3rem;
+}
+
+.fa-solid.fa-star {
+    color: gold;
 }
