@@ -49,7 +49,7 @@ function getEmptyNote(type = 'text') {
     createdAt: utilService.getRandomTimestamp(),
     type,
     isPinned: false,
-    style: { backgroundColor: utilService.getRandomColor() },
+    style: { backgroundColor: '#ffffffff' },
   }
   if (type === 'text') emptyNote.info = { title: '', txt: '' }
   else if (type === 'photo') emptyNote.info = { title: '', url: '' }
