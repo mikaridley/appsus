@@ -5,6 +5,10 @@
   grid-auto-rows: 2rem;
   gap: 1.2rem;
   align-items: center;
+
+  body.note-menu-open & {
+    width: max-content;
+  }
 }
 
 .side-bar-row {
@@ -28,5 +32,15 @@
 
   &.active {
     background-color: #feefc3;
+  }
+
+  body.note-menu-open & {
+    padding: 0.4rem;
+    margin-left: 1.3rem;
+    border-radius: 5rem;
+
+    > p {
+      display: none;
+    }
   }
 }

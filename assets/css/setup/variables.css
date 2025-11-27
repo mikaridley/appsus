@@ -6,7 +6,12 @@
   --mail-bg-clr1: #e9eef6;
   --mail-bg-clr2: #f2f6fc;
 
-    --mail-txt-clr-2: #d0d0d0;
-    --mail-txt-clr-1: #767678;
-    --mail-txt-clr: #202124;
+  --mail-txt-clr-2: #d0d0d0;
+  --mail-txt-clr-1: #767678;
+  --mail-txt-clr: #202124;
+
+  /* Note Vars */
+  --clr-note-bg-1: #ffffff;
+  --clr-note-bg-2: #f1f3f4;
+  --clr-note-bg-3: #efeff1;
 }

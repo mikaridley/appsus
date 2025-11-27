@@ -1,12 +1,18 @@
 header {
-  background: var(--mail-bg-clr);
-  border-bottom: 2px solid white;
+  background: var(--clr-note-bg-1);
+  border-bottom: 2px solid var(--clr-note-bg-3);
 }
 
 .app-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px 0;
+  display: grid;
+  grid-template-columns: 0.3fr 3fr 2fr;
+  justify-items: start;
+  align-items: center;
+  padding: 20px;
+
+  > :nth-child(3) {
+    justify-self: end;
+  }
 }
 
 nav a {
@@ -18,7 +24,27 @@ nav a:active {
 }
 
 nav a.active {
-  color: darkblue;
+  color: rgb(22, 81, 149);
   font-weight: bold;
   text-decoration: overline;
+}
+
+.burger-container {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--clr-note-bg-2);
+    border-radius: 50%;
+  }
+}
+
+.burger {
+  width: 60%;
+  height: auto;
 }
