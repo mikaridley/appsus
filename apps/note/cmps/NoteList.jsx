@@ -7,6 +7,7 @@ export function NoteList({
   paintNote,
   removeNote,
   toggleTodo,
+  pinNote,
 }) {
   console.log(notes)
 
@@ -18,6 +19,7 @@ export function NoteList({
         removeNote={removeNote}
         paintNote={paintNote}
         toggleTodo={toggleTodo}
+        pinNote={pinNote}
       />
     </section>
   )

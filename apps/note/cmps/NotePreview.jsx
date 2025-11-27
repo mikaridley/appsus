@@ -1,7 +1,13 @@
 import { NoteContent } from './NoteContent.jsx'
 import { Loader } from '../../../cmps/Loader.jsx'
 
-export function NotePreview({ notes, removeNote, toggleTodo, paintNote }) {
+export function NotePreview({
+  notes,
+  removeNote,
+  toggleTodo,
+  paintNote,
+  pinNote,
+}) {
   const pinNotes = notes.filter(note => note.isPinned)
   const notPinNotes = notes.filter(note => !note.isPinned)
 
@@ -14,6 +20,7 @@ export function NotePreview({ notes, removeNote, toggleTodo, paintNote }) {
         paintNote={paintNote}
         notes={pinNotes}
         removeNote={removeNote}
+        pinNote={pinNote}
       />
       <h1>Not Pinned Notes</h1>
       <NoteContent
@@ -21,6 +28,7 @@ export function NotePreview({ notes, removeNote, toggleTodo, paintNote }) {
         paintNote={paintNote}
         notes={notPinNotes}
         removeNote={removeNote}
+        pinNote={pinNote}
       />
     </React.Fragment>
   )

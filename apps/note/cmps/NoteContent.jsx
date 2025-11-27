@@ -7,7 +7,13 @@ import { ColorPalete } from './ColorPalete.jsx'
 const { Link } = ReactRouterDOM
 const { useState } = React
 
-export function NoteContent({ notes, toggleTodo, paintNote, removeNote }) {
+export function NoteContent({
+  notes,
+  toggleTodo,
+  paintNote,
+  removeNote,
+  pinNote,
+}) {
   const [colorOpenId, setColorOpenId] = useState('')
 
   function onPaintNote(id) {
@@ -15,11 +21,16 @@ export function NoteContent({ notes, toggleTodo, paintNote, removeNote }) {
       if (id === colorOpenId) return ''
       return id
     })
-
-    function onRemoveNote(id) {
-      removeNote(id)
-    }
   }
+
+  function onRemoveNote(id) {
+    removeNote(id)
+  }
+
+  function onPinNote(id) {
+    pinNote(id)
+  }
+
   return (
     <section className="notes-container">
       {notes.map(({ id, info, type, style }) => {
@@ -47,6 +58,13 @@ export function NoteContent({ notes, toggleTodo, paintNote, removeNote }) {
                   onPaintNote(id)
                 }}
                 src="assets/img/note/paint.svg"
+              />
+              <img
+                onClick={ev => {
+                  ev.stopPropagation()
+                  onPinNote(id)
+                }}
+                src="assets/img/note/pin.svg"
               />
             </div>
             {colorOpenId === id && (

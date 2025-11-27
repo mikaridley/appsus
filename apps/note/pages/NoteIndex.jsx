@@ -53,9 +53,20 @@ export function NoteIndex() {
   }
 
   function paintNote(noteId, color) {
-    console.log(color)
     noteService.get(noteId).then(note => {
       note.style.backgroundColor = color
+
+      noteService.save(note).then(savedNote => {
+        setNotes(
+          notes.map(note => (note.id === savedNote.id ? savedNote : note))
+        )
+      })
+    })
+  }
+
+  function pinNote(noteId) {
+    noteService.get(noteId).then(note => {
+      note.isPinned = !note.isPinned
 
       noteService.save(note).then(savedNote => {
         setNotes(
@@ -88,6 +99,7 @@ export function NoteIndex() {
         removeNote={removeNote}
         paintNote={paintNote}
         toggleTodo={toggleTodo}
+        pinNote={pinNote}
       />
       <Outlet />
     </section>
