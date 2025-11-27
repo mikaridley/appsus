@@ -11,6 +11,7 @@ const { Outlet, useParams } = ReactRouterDOM
 export function MailIndex() {
     const [mails, setMails] = useState(null)
     const [showAddModal, setShowAddModal] = useState(false)
+    const [unreadCount, setUnreadCount] = useState()
     const [filterBy, setFilterBy] = useState({ nav: 'inbox' })
 
     const { mailId } = useParams()
@@ -18,6 +19,8 @@ export function MailIndex() {
     useEffect(() => {
         loadMails()
     }, [filterBy])
+
+    mailService.getUnreadMails().then(setUnreadCount)
 
     function loadMails() {
         mailService.query(filterBy)
@@ -57,8 +60,8 @@ export function MailIndex() {
         setShowAddModal(showAddModal => !showAddModal)
     }
 
-    function onToggleRead(ev, mail) {
-        ev.preventDefault()
+    function onToggleRead(mail, ev = null) {
+        if (ev) ev.preventDefault()
 
         mail.isRead = !mail.isRead
         mailService.save(mail)
@@ -71,14 +74,6 @@ export function MailIndex() {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterByToEdit }))
     }
 
-    function getUnreadmails() {
-        let count = 0
-        for (let i = 0; i < mails.length; i++) {
-            if (!mails[i].isRead) count++
-        }
-        return count
-    }
-
     if (!mails) return <Loader />
 
     return (
@@ -86,7 +81,7 @@ export function MailIndex() {
             <MailFilter onSetFilterBy={onSetFilterBy} />
             <nav>
                 <button onClick={toggleShowAddModal}>Compose</button>
-                <p onClick={() => setFilterBy({ nav: 'inbox' })}>Inbox {getUnreadmails()}</p>
+                <p onClick={() => setFilterBy({ nav: 'inbox' })}>Inbox {unreadCount}</p>
                 <p onClick={() => setFilterBy({ nav: 'sent' })}>Sent</p>
                 <p onClick={() => setFilterBy({ nav: 'trash' })}>Trash</p>
             </nav>
@@ -96,7 +91,7 @@ export function MailIndex() {
                         onRemoveMail={onRemoveMail}
                         onToggleRead={onToggleRead}
                     />}
-                <Outlet />
+                <Outlet context={onToggleRead} />
                 {showAddModal && <AddMail saveMail={saveMail} toggleModal={toggleShowAddModal} />}
             </main>
         </section>
