@@ -61,6 +61,25 @@ export function AddNote({ saveNote }) {
     reader.readAsDataURL(file)
   }
 
+  function onVideoUpload(ev) {
+    const file = ev.target.files[0]
+    if (!file) return
+
+    const reader = new FileReader()
+    reader.onload = e => {
+      const videoUrl = e.target.result
+      setNoteToAdd(prevNote => ({
+        ...prevNote,
+        info: {
+          ...prevNote.info,
+          url: videoUrl,
+        },
+      }))
+    }
+
+    reader.readAsDataURL(file)
+  }
+
   function addTodo() {
     setNoteToAdd(prevNote => ({
       ...prevNote,
@@ -127,6 +146,9 @@ export function AddNote({ saveNote }) {
                 </ul>
               </div>
             )}
+            {noteToAdd.type === 'video' && (
+              <input type="file" accept="video/*" onChange={onVideoUpload} />
+            )}
 
             <div className="input-features">
               <img
@@ -140,6 +162,10 @@ export function AddNote({ saveNote }) {
               <img
                 onClick={() => onChangeNoteType('todo')}
                 src="assets/img/note/todo.png"
+              />
+              <img
+                onClick={() => onChangeNoteType('video')}
+                src="assets/img/note/photo.png"
               />
             </div>
 
