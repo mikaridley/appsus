@@ -1,5 +1,4 @@
 import { mailService } from "../services/mail.service.js"
-import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
 
 const { useState } = React
 
@@ -30,13 +29,15 @@ export function AddMail({ saveMail, toggleModal }) {
     return (
         <form className="add-mail flex column" onSubmit={event => onSaveMail(event, mailToAdd)}>
             <section className="flex space-between">
-                <h2>New Message</h2>
+                <p>New Message</p>
                 <button type="button" onClick={toggleModal}>x</button>
             </section>
 
             <input onChange={handleChange} name="to" id="to" placeHolder="To"></input>
             <input onChange={handleChange} name="subject" id="subject" placeHolder="Subject"></input>
-            <input onChange={handleChange} name="body"></input>
+            <label>
+                <input onChange={handleChange} name="body"></input>
+            </label>
 
             <button>Send</button>
         </form>

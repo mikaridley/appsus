@@ -1,9 +1,7 @@
 .mail-list {
     background-color: white;
-
-    width: 80vw;
-    margin: auto;
-
+    width: 85vw;
+    height: fit-content;   
     border-radius: 1rem;
 
     >ul {

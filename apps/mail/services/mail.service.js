@@ -19,17 +19,25 @@ export const mailService = {
     // getSearchParams,
 }
 
-function query() {
+function query(filterBy) {
+    console.log('filterBy:', filterBy)
     return storageService.query(MAIL_KEY)
         .then(mails => {
-
-            // if (filterBy.txt) {
-            //     const regExp = new RegExp(filterBy.txt, 'i')
-            //     mails = mails.filter(mail => regExp.test(mail.title))
-            // }
-            // if (filterBy.maxPrice) {
-            //     mails = mails.filter(mail => mail.listPrice.amount < (filterBy.maxPrice))
-            // }
+            if (filterBy.txt) {
+                const regExp = new RegExp(filterBy.txt, 'i')
+                mails = mails.filter(mail => regExp.test(mail.from))
+            }
+            if (filterBy.nav) {
+                if(filterBy.nav === 'inbox'){
+                    mails = mails.filter(mail => !mail.removedAt && mail.from !== gLoggedinUser.email)
+                }
+                if(filterBy.nav === 'sent'){
+                    mails = mails.filter(mail => !mail.removedAt && mail.from === gLoggedinUser.email)
+                }
+                if(filterBy.nav === 'trash'){
+                    mails = mails.filter(mail => mail.removedAt && mail.from !== gLoggedinUser.email)
+                }
+            }
             return mails
         })
 }
@@ -45,9 +53,9 @@ function remove(id) {
 
 function save(mail) {
     if (mail.id) {
-        mail.sentAt = Date.now()
         return storageService.put(MAIL_KEY, mail)
     } else {
+        mail.sentAt = Date.now()
         return storageService.post(MAIL_KEY, mail)
     }
 }

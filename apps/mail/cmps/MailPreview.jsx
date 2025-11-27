@@ -1,8 +1,19 @@
 import { utilService } from "../../../services/util.service.js"
 import { LongTxt } from "../../../cmps/LongTxt.jsx"
 
-export function MailPreview({ mail }) {
+const { useState } = React
+
+export function MailPreview({ mail, onRemoveMail, onToggleRead }) {
     const { from, subject, body, sentAt, isRead } = mail
+    const [isHovering, setIsHovering] = useState(false)
+
+    function handleMouseEnter() {
+        setIsHovering(true)
+    }
+
+    function handleMouseLeave() {
+        setIsHovering(false)
+    }
 
     const userName = utilService.getUserName(from)
 
@@ -13,10 +24,19 @@ export function MailPreview({ mail }) {
     const classRead = isRead ? 'read' : ''
 
     return (
-        <article className={`mail-preview ${classRead}`}>
+        <article className={`mail-preview ${classRead}`}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+        >
             <h3>{userName}</h3>
             <LongTxt txt={`${subject} - ${body}`} length={140} />
-            <p>{day} {month}</p>
+            {!isHovering && <p>{day} {month}</p>}
+            {isHovering &&
+                <section>
+                    <button onClick={event => onRemoveMail(event, mail)}>remove</button>
+                    <button onClick={event => onToggleRead(event, mail)}>mark read</button>
+                </section>
+            }
         </article>
     )
 }
