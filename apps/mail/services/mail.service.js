@@ -45,9 +45,9 @@ function remove(id) {
 
 function save(mail) {
     if (mail.id) {
-        mail.sentAt = Date.now()
         return storageService.put(MAIL_KEY, mail)
     } else {
+        mail.sentAt = Date.now()
         return storageService.post(MAIL_KEY, mail)
     }
 }

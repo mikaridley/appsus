@@ -1,16 +1,16 @@
 import { mailService } from "../services/mail.service.js"
 import { MailList } from "../cmps/MailList.jsx"
-import { MailDetails } from "../cmps/MailDetails.jsx"
 import { AddMail } from "../cmps/AddMail.jsx"
 import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
 import { Loader } from '../../../cmps/Loader.jsx'
 
 const { useState, useEffect } = React
+const { Outlet, useParams } = ReactRouterDOM
 
 export function MailIndex() {
     const [mails, setMails] = useState(null)
-    const [selectedMail, setSelectedMail] = useState(null)
     const [showAddModal, setShowAddModal] = useState(false)
+    const { mailId } = useParams()
 
     useEffect(() => {
         loadMails()
@@ -46,10 +46,6 @@ export function MailIndex() {
             .catch(() => showErrorMsg('failed to delete'))
     }
 
-    function onSelectMail(mailId) {
-        setSelectedMail(mailId)
-    }
-
     function toggleShowAddModal() {
         setShowAddModal(showAddModal => !showAddModal)
     }
@@ -71,12 +67,10 @@ export function MailIndex() {
                 <p>inbox {getUnreadmails()}</p>
             </nav>
             <main>
-                {!selectedMail &&
-                    <MailList mails={mails}
-                        onPutMailToJunk={onPutMailToJunk}
-                        onSelectMail={onSelectMail}
-                    />}
-                {selectedMail && <MailDetails mailId={selectedMail} />}
+                {!mailId &&
+                    <MailList mails={mails} onPutMailToJunk={onPutMailToJunk} />
+                }
+                <Outlet />
                 {showAddModal && <AddMail saveMail={saveMail} toggleModal={toggleShowAddModal} />}
             </main>
         </section>

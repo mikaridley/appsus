@@ -3,7 +3,7 @@ import { LongTxt } from "../../../cmps/LongTxt.jsx"
 
 const { useState } = React
 
-export function MailPreview({ mail, onSelectMail }) {
+export function MailPreview({ mail }) {
     const { from, subject, body, sentAt, isRead } = mail
     const [isHovering, setIsHovering] = useState(false)
 
