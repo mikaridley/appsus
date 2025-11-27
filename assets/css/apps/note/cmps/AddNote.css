@@ -41,6 +41,20 @@
   }
 }
 
+.todo-input-container {
+  justify-self: start;
+}
+
+.todo-input {
+  outline: none;
+  border: none;
+  font-size: 1rem;
+}
+
+.todo-preview {
+  text-align: start;
+}
+
 .input-features {
   display: flex;
   > img {

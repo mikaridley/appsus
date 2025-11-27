@@ -11,6 +11,7 @@ export const noteService = {
   remove,
   save,
   getEmptyNote,
+  getEmptyTodo,
 }
 
 function query(filterBy = {}) {
@@ -52,8 +53,12 @@ function getEmptyNote(type = 'text') {
   }
   if (type === 'text') emptyNote.info = { title: '', txt: '' }
   else if (type === 'photo') emptyNote.info = { title: '', url: '' }
-  else if (type === 'todo') emptyNote.info = { title: '', todo: [] }
+  else if (type === 'todo') emptyNote.info = { title: '', todos: [] }
   return emptyNote
+}
+
+function getEmptyTodo(txt) {
+  return { id: utilService.makeId(3), txt, isDone: false }
 }
 
 function _createNotes() {
