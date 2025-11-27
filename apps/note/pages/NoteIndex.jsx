@@ -12,18 +12,14 @@ const { Outlet } = ReactRouterDOM
 
 export function NoteIndex() {
   const [notes, setNotes] = useState([])
+  const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
 
   useEffect(() => {
     loadNotes()
-  }, [])
+  }, [filterBy])
 
   function loadNotes() {
-    noteService
-      .query()
-      .then(notes => {
-        setNotes(notes)
-      })
-      .catch(console.log)
+    noteService.query(filterBy).then(setNotes).catch(console.log)
   }
 
   function saveNote(note) {
@@ -90,6 +86,10 @@ export function NoteIndex() {
     })
   }
 
+  function onSetFilter(newFilterBy) {
+    setFilterBy(filterBy => ({ ...filterBy, ...newFilterBy }))
+  }
+
   return (
     <section className="note-index note-main-layout">
       <NoteSideBar />
@@ -100,6 +100,8 @@ export function NoteIndex() {
         paintNote={paintNote}
         toggleTodo={toggleTodo}
         pinNote={pinNote}
+        defaultFilter={filterBy}
+        onSetFilter={onSetFilter}
       />
       <Outlet />
     </section>

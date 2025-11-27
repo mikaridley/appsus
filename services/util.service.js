@@ -11,6 +11,7 @@ export const utilService = {
   getRandomTimestamp,
   getMonthNameShort,
   getUserName,
+  debounce,
 }
 
 function saveToStorage(key, val) {
@@ -133,4 +134,14 @@ function getMonthNameShort(date) {
 function getUserName(mailFrom) {
   const idx = mailFrom.indexOf('@')
   if (idx !== -1) return mailFrom.substring(0, idx)
+}
+
+function debounce(func, delay) {
+  let timeoutId
+  return (...args) => {
+    clearTimeout(timeoutId)
+    timeoutId = setTimeout(() => {
+      func(...args)
+    }, delay)
+  }
 }

@@ -1,4 +1,5 @@
 import { AddNote } from './AddNote.jsx'
+import { NoteFilter } from './NoteFilter.jsx'
 import { NotePreview } from './NotePreview.jsx'
 
 export function NoteList({
@@ -8,11 +9,14 @@ export function NoteList({
   removeNote,
   toggleTodo,
   pinNote,
+  defaultFilter,
+  onSetFilter,
 }) {
   console.log(notes)
 
   return (
     <section className="note-list">
+      <NoteFilter defaultFilter={defaultFilter} onSetFilter={onSetFilter} />
       <AddNote saveNote={saveNote} />
       <NotePreview
         notes={notes}
