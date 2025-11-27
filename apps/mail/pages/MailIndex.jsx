@@ -1,6 +1,7 @@
 import { mailService } from "../services/mail.service.js"
 import { MailList } from "../cmps/MailList.jsx"
 import { AddMail } from "../cmps/AddMail.jsx"
+import { MailFilter } from "../cmps/MailFilter.jsx"
 import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
 import { Loader } from '../../../cmps/Loader.jsx'
 
@@ -10,7 +11,7 @@ const { Outlet, useParams } = ReactRouterDOM
 export function MailIndex() {
     const [mails, setMails] = useState(null)
     const [showAddModal, setShowAddModal] = useState(false)
-    const [filterBy, setFilterBy] = useState('inbox')
+    const [filterBy, setFilterBy] = useState({ nav: 'inbox' })
 
     const { mailId } = useParams()
 
@@ -61,6 +62,13 @@ export function MailIndex() {
 
         mail.isRead = !mail.isRead
         mailService.save(mail)
+            .then(savedMail => {
+                setMails(mails.map(mail => mail.id === saveMail.id ? savedMail : mail))
+            })
+    }
+
+    function onSetFilterBy(filterByToEdit) {
+        setFilterBy(prevFilter => ({ ...prevFilter, ...filterByToEdit }))
     }
 
     function getUnreadmails() {
@@ -75,11 +83,12 @@ export function MailIndex() {
 
     return (
         <section className="mail-index flex space-between">
+            <MailFilter onSetFilterBy={onSetFilterBy} />
             <nav>
                 <button onClick={toggleShowAddModal}>Compose</button>
-                <p onClick={() => setFilterBy('inbox')}>Inbox {getUnreadmails()}</p>
-                <p onClick={() => setFilterBy('sent')}>Sent</p>
-                <p onClick={() => setFilterBy('trash')}>Trash</p>
+                <p onClick={() => setFilterBy({ nav: 'inbox' })}>Inbox {getUnreadmails()}</p>
+                <p onClick={() => setFilterBy({ nav: 'sent' })}>Sent</p>
+                <p onClick={() => setFilterBy({ nav: 'trash' })}>Trash</p>
             </nav>
             <main>
                 {!mailId &&

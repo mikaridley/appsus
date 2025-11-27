@@ -20,17 +20,23 @@ export const mailService = {
 }
 
 function query(filterBy) {
-    console.log('filterBY:', filterBy)
+    console.log('filterBy:', filterBy)
     return storageService.query(MAIL_KEY)
         .then(mails => {
-            if (filterBy === 'inbox') {
-                mails = mails.filter(mail => !mail.removedAt && mail.from !== gLoggedinUser.email)
+            if (filterBy.txt) {
+                const regExp = new RegExp(filterBy.txt, 'i')
+                mails = mails.filter(mail => regExp.test(mail.from))
             }
-            if (filterBy === 'sent') {
-                mails = mails.filter(mail => !mail.removedAt && mail.from === gLoggedinUser.email)
-            }
-            if (filterBy === 'trash') {
-                mails = mails.filter(mail => mail.removedAt)
+            if (filterBy.nav) {
+                if(filterBy.nav === 'inbox'){
+                    mails = mails.filter(mail => !mail.removedAt && mail.from !== gLoggedinUser.email)
+                }
+                if(filterBy.nav === 'sent'){
+                    mails = mails.filter(mail => !mail.removedAt && mail.from === gLoggedinUser.email)
+                }
+                if(filterBy.nav === 'trash'){
+                    mails = mails.filter(mail => mail.removedAt && mail.from !== gLoggedinUser.email)
+                }
             }
             return mails
         })
