@@ -1,4 +1,4 @@
-export function TodoNote({ info, toggleTodo }) {
+export function TodoNote({ info, noteId, toggleTodo }) {
   const { title, todos } = info
 
   return (
@@ -12,7 +12,7 @@ export function TodoNote({ info, toggleTodo }) {
               <label onClick={ev => ev.stopPropagation()}>
                 <input
                   onClick={ev => ev.stopPropagation()}
-                  onChange={() => toggleTodo(todo.id)}
+                  onChange={() => toggleTodo(noteId, todo.id)}
                   type="checkbox"
                   checked={todo.isDone}
                 />

@@ -18,6 +18,8 @@
   border-radius: 8px;
   border: 1px solid #dadce0;
 
+  position: relative;
+
   display: inline-block;
   > .note-icons {
     > img {
@@ -37,5 +39,38 @@
   text-decoration: line-through;
 }
 
-.note-photo {
+.video-input {
+  width: 100%;
+}
+
+.note-paint-palete {
+  background-color: white;
+  border: 1px solid #dadce0;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 0.3rem;
+
+  display: flex;
+  gap: 3px;
+
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  transform: translateY(50%);
+
+  cursor: pointer;
+
+  > :nth-child(1) {
+    border: 1px, solid rgb(205, 205, 205);
+  }
+
+  > * {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+
+    &:hover {
+      border: 1px, solid rgba(0, 0, 0, 0.649);
+    }
+  }
 }

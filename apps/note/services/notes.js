@@ -1,15 +1,30 @@
 import { utilService } from '../../../services/util.service.js'
 
+export const colors = {
+  none: '#ffffffff',
+  coral: '#faafa8',
+  peach: '#f39f76',
+  sand: '#fff8b8',
+  mint: '#e2f6d3',
+  sage: '#b4ddd3',
+  fog: '#d4e4ed',
+  storm: '#aeccdc',
+  dusk: '#d3bfdb',
+  blossom: '#f6e2dd',
+  clay: '#e9e3d4',
+  chalk: '#efeff1',
+}
+
 export const demoNotes = [
   {
     id: utilService.makeId(4),
     createdAt: utilService.getRandomTimestamp(),
-    type: 'photo',
+    type: 'video',
     isPinned: true,
-    style: { backgroundColor: '#ffadad' },
+    style: { backgroundColor: colors.none },
     info: {
-      title: 'Mountain View',
-      url: 'https://picsum.photos/1000/1000?random=1',
+      title: 'Somewhere over the rainbow',
+      url: 'assets/video/somewhere-over-the-rainbow.mp4',
     },
   },
   {
@@ -17,7 +32,7 @@ export const demoNotes = [
     createdAt: utilService.getRandomTimestamp(),
     type: 'todo',
     isPinned: true,
-    style: { backgroundColor: '#ffd6a5' },
+    style: { backgroundColor: colors.coral },
     info: {
       title: 'Daily Tasks',
       todos: [
@@ -31,7 +46,7 @@ export const demoNotes = [
     createdAt: utilService.getRandomTimestamp(),
     type: 'text',
     isPinned: true,
-    style: { backgroundColor: '#fdffb6' },
+    style: { backgroundColor: colors.sage },
     info: { title: 'Meeting Notes', txt: 'Discuss quarterly goals' },
   },
   {
@@ -39,7 +54,7 @@ export const demoNotes = [
     createdAt: utilService.getRandomTimestamp(),
     type: 'photo',
     isPinned: false,
-    style: { backgroundColor: '#caffbf' },
+    style: { backgroundColor: colors.storm },
     info: {
       title: 'Ocean Sunset',
       url: 'https://picsum.photos/1000/1000?random=2',
@@ -50,7 +65,7 @@ export const demoNotes = [
     createdAt: utilService.getRandomTimestamp(),
     type: 'todo',
     isPinned: false,
-    style: { backgroundColor: '#9bf6ff' },
+    style: { backgroundColor: colors.none },
     info: {
       title: 'Shopping List',
       todos: [
@@ -64,7 +79,7 @@ export const demoNotes = [
     createdAt: utilService.getRandomTimestamp(),
     type: 'text',
     isPinned: false,
-    style: { backgroundColor: '#a0c4ff' },
+    style: { backgroundColor: colors.chalk },
     info: { title: 'Reminder', txt: 'Call the bank' },
   },
   {
@@ -72,7 +87,7 @@ export const demoNotes = [
     createdAt: utilService.getRandomTimestamp(),
     type: 'photo',
     isPinned: false,
-    style: { backgroundColor: '#bdb2ff' },
+    style: { backgroundColor: colors.mint },
     info: {
       title: 'City Skyline',
       url: 'https://picsum.photos/1000/1000?random=3',
@@ -83,7 +98,7 @@ export const demoNotes = [
     createdAt: utilService.getRandomTimestamp(),
     type: 'todo',
     isPinned: false,
-    style: { backgroundColor: '#ffc6ff' },
+    style: { backgroundColor: colors.none },
     info: {
       title: 'Work Tasks',
       todos: [
@@ -97,18 +112,18 @@ export const demoNotes = [
     createdAt: utilService.getRandomTimestamp(),
     type: 'text',
     isPinned: false,
-    style: { backgroundColor: '#ffadad' },
+    style: { backgroundColor: colors.sand },
     info: { title: 'Ideas', txt: 'New app concept' },
   },
   {
     id: utilService.makeId(4),
     createdAt: utilService.getRandomTimestamp(),
-    type: 'photo',
+    type: 'video',
     isPinned: true,
-    style: { backgroundColor: '#ffd6a5' },
+    style: { backgroundColor: colors.coral },
     info: {
-      title: 'Forest Path',
-      url: 'https://picsum.photos/1000/1000?random=4',
+      title: 'Pizzaaa',
+      url: 'assets/video/pizza.mp4',
     },
   },
   {
@@ -116,7 +131,7 @@ export const demoNotes = [
     createdAt: utilService.getRandomTimestamp(),
     type: 'todo',
     isPinned: false,
-    style: { backgroundColor: '#fdffb6' },
+    style: { backgroundColor: colors.none },
     info: {
       title: 'Gym Routine',
       todos: [
@@ -130,7 +145,7 @@ export const demoNotes = [
     createdAt: utilService.getRandomTimestamp(),
     type: 'text',
     isPinned: false,
-    style: { backgroundColor: '#caffbf' },
+    style: { backgroundColor: colors.none },
     info: { title: 'Books to Read', txt: 'Finish chapter 5' },
   },
   {
@@ -138,7 +153,7 @@ export const demoNotes = [
     createdAt: utilService.getRandomTimestamp(),
     type: 'photo',
     isPinned: false,
-    style: { backgroundColor: '#9bf6ff' },
+    style: { backgroundColor: colors.peach },
     info: {
       title: 'Desert Dunes',
       url: 'https://picsum.photos/1000/1000?random=5',
@@ -149,7 +164,7 @@ export const demoNotes = [
     createdAt: utilService.getRandomTimestamp(),
     type: 'todo',
     isPinned: true,
-    style: { backgroundColor: '#ffb6b6' },
+    style: { backgroundColor: colors.peach },
     info: {
       title: 'Weekend Tasks',
       todos: [
@@ -163,23 +178,26 @@ export const demoNotes = [
     createdAt: utilService.getRandomTimestamp(),
     type: 'text',
     isPinned: false,
-    style: { backgroundColor: '#ffd6a5' },
+    style: { backgroundColor: colors.none },
     info: { title: 'Notes', txt: 'Prepare presentation' },
   },
   {
     id: utilService.makeId(4),
     createdAt: utilService.getRandomTimestamp(),
-    type: 'photo',
+    type: 'video',
     isPinned: false,
-    style: { backgroundColor: '#fdffb6' },
-    info: { title: 'Beach', url: 'https://picsum.photos/1000/1000?random=6' },
+    style: { backgroundColor: colors.fog },
+    info: {
+      title: 'My cute cow',
+      url: 'assets/video/cow.mp4',
+    },
   },
   {
     id: utilService.makeId(4),
     createdAt: utilService.getRandomTimestamp(),
     type: 'todo',
     isPinned: false,
-    style: { backgroundColor: '#caffbf' },
+    style: { backgroundColor: colors.clay },
     info: {
       title: 'Study Plan',
       todos: [
@@ -193,7 +211,7 @@ export const demoNotes = [
     createdAt: utilService.getRandomTimestamp(),
     type: 'text',
     isPinned: true,
-    style: { backgroundColor: '#9bf6ff' },
+    style: { backgroundColor: colors.dusk },
     info: { title: 'Motivation', txt: 'Keep learning!' },
   },
   {
@@ -201,7 +219,7 @@ export const demoNotes = [
     createdAt: utilService.getRandomTimestamp(),
     type: 'photo',
     isPinned: false,
-    style: { backgroundColor: '#a0c4ff' },
+    style: { backgroundColor: colors.none },
     info: { title: 'River', url: 'https://picsum.photos/1000/1000?random=7' },
   },
 ]

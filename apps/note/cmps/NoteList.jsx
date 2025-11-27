@@ -1,7 +1,13 @@
 import { AddNote } from './AddNote.jsx'
 import { NotePreview } from './NotePreview.jsx'
 
-export function NoteList({ notes, saveNote, removeNote, toggleTodo }) {
+export function NoteList({
+  notes,
+  saveNote,
+  paintNote,
+  removeNote,
+  toggleTodo,
+}) {
   console.log(notes)
 
   return (
@@ -10,6 +16,7 @@ export function NoteList({ notes, saveNote, removeNote, toggleTodo }) {
       <NotePreview
         notes={notes}
         removeNote={removeNote}
+        paintNote={paintNote}
         toggleTodo={toggleTodo}
       />
     </section>

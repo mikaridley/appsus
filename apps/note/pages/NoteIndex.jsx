@@ -12,7 +12,6 @@ const { Outlet } = ReactRouterDOM
 
 export function NoteIndex() {
   const [notes, setNotes] = useState([])
-  const [isNoteOpen, setIsNoteOpen] = useState(false)
 
   useEffect(() => {
     loadNotes()
@@ -32,11 +31,11 @@ export function NoteIndex() {
       .save(note)
       .then(note => {
         setNotes([...notes, note])
-        // showSuccessMsg('Note added!')
+        showSuccessMsg('Note added!')
       })
       .catch(err => {
         console.log('err:', err)
-        // showErrorMsg('Problem adding note')
+        showErrorMsg('Problem adding note')
       })
   }
 
@@ -45,24 +44,39 @@ export function NoteIndex() {
       .remove(noteId)
       .then(() => {
         setNotes(notes => notes.filter(note => note.id !== noteId))
-        // showSuccessMsg(`Note removed successfully`)
+        showSuccessMsg(`Note removed successfully`)
       })
       .catch(err => {
         console.log('err:', err)
-        // showErrorMsg('Cannot remove note')
+        showErrorMsg('Cannot remove note')
       })
   }
 
-  function toggleTodo(todoId) {
-    const todoNote = notes.filter(note => note.type === 'todo')
-    const allTodos = todoNote.flatMap(note => note.info.todos)
-    const todo = allTodos.find(todo => todo.id === todoId)
+  function paintNote(noteId, color) {
+    console.log(color)
+    noteService.get(noteId).then(note => {
+      note.style.backgroundColor = color
 
-    if (!todo) return
+      noteService.save(note).then(savedNote => {
+        setNotes(
+          notes.map(note => (note.id === savedNote.id ? savedNote : note))
+        )
+      })
+    })
+  }
 
-    todo.isDone = !todo.isDone
+  function toggleTodo(noteId, todoId) {
+    noteService.get(noteId).then(note => {
+      const todoIdx = note.info.todos.findIndex(todo => todo.id === todoId)
+      if (todoIdx === -1) return
+      note.info.todos[todoIdx].isDone = !note.info.todos[todoIdx].isDone
 
-    setNotes([...notes])
+      noteService.save(note).then(savedNote => {
+        setNotes(
+          notes.map(note => (note.id === savedNote.id ? savedNote : note))
+        )
+      })
+    })
   }
 
   return (
@@ -72,6 +86,7 @@ export function NoteIndex() {
         notes={notes}
         saveNote={saveNote}
         removeNote={removeNote}
+        paintNote={paintNote}
         toggleTodo={toggleTodo}
       />
       <Outlet />
