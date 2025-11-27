@@ -43,14 +43,17 @@ function save(note) {
 }
 
 function getEmptyNote(type = 'text') {
-  return {
+  const emptyNote = {
     id: '',
     createdAt: utilService.getRandomTimestamp(),
     type,
     isPinned: false,
     style: { backgroundColor: utilService.getRandomColor() },
-    info: { title: '', txt: '' },
   }
+  if (type === 'text') emptyNote.info = { title: '', txt: '' }
+  else if (type === 'photo') emptyNote.info = { title: '', url: '' }
+  else if (type === 'todo') emptyNote.info = { title: '', todo: [] }
+  return emptyNote
 }
 
 function _createNotes() {

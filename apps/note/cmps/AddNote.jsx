@@ -35,6 +35,20 @@ export function AddNote({ saveNote }) {
     }))
   }
 
+  function onChangeNoteType(type) {
+    setNoteToAdd(noteService.getEmptyNote(type))
+  }
+
+  function onImgUpload(ev) {
+    const file = ev.target.files[0]
+    const url = URL.createObjectURL(file)
+    console.log(url)
+    setNoteToAdd(prevNote => ({
+      ...prevNote,
+      info: { ...prevNote.info, url },
+    }))
+  }
+
   return (
     <div className="add-note">
       <form onSubmit={onSaveNote}>
@@ -52,12 +66,25 @@ export function AddNote({ saveNote }) {
               placeholder="Title"
               name="title"
             />
-            <input
-              onChange={handleChange}
-              type="text"
-              placeholder="Take a note..."
-              name="txt"
-            />
+            {noteToAdd.type === 'text' && (
+              <input
+                onChange={handleChange}
+                type="text"
+                placeholder="Take a note..."
+                name="txt"
+              />
+            )}
+            {noteToAdd.type === 'photo' && (
+              <input type="file" accept="image/*" onChange={onImgUpload} />
+            )}
+
+            <div className="input-features">
+              <img
+                onClick={() => onChangeNoteType('photo')}
+                src="assets/img/note/photo.svg"
+              />
+            </div>
+
             <button style={{ display: 'none' }} />
           </div>
         )}
