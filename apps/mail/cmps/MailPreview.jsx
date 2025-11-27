@@ -3,7 +3,7 @@ import { LongTxt } from "../../../cmps/LongTxt.jsx"
 
 const { useState } = React
 
-export function MailPreview({ mail }) {
+export function MailPreview({ mail, onRemoveMail, onToggleRead }) {
     const { from, subject, body, sentAt, isRead } = mail
     const [isHovering, setIsHovering] = useState(false)
 
@@ -33,8 +33,8 @@ export function MailPreview({ mail }) {
             {!isHovering && <p>{day} {month}</p>}
             {isHovering &&
                 <section>
-                    <button>remove</button>
-                    <button>mark read</button>
+                    <button onClick={event => onRemoveMail(event, mail)}>remove</button>
+                    <button onClick={event => onToggleRead(event, mail)}>mark read</button>
                 </section>
             }
         </article>

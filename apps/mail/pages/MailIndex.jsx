@@ -10,14 +10,16 @@ const { Outlet, useParams } = ReactRouterDOM
 export function MailIndex() {
     const [mails, setMails] = useState(null)
     const [showAddModal, setShowAddModal] = useState(false)
+    const [filterBy, setFilterBy] = useState('inbox')
+
     const { mailId } = useParams()
 
     useEffect(() => {
         loadMails()
-    }, [])
+    }, [filterBy])
 
     function loadMails() {
-        mailService.query()
+        mailService.query(filterBy)
             .then(setMails)
             .catch(console.log)
     }
@@ -35,19 +37,30 @@ export function MailIndex() {
             })
     }
 
-    function onPutMailToJunk(mail) {
+    function onRemoveMail(ev, mail) {
+        ev.preventDefault()
+
+        const mailId = mail.id
+        const newMails = mail.removedAt ? mailService.remove(mailId) : mailService.save(mail)
         mail.removedAt = Date.now()
-        mailService.save(mail)
-            .then(() => {
-                setMails(mails =>
-                    mails.filter(mail => mail.id !== mailId))
-                showSuccessMsg('Deleted')
-            })
+
+        newMails.then(() => {
+            setMails(mails =>
+                mails.filter(mail => mail.id !== mailId))
+            showSuccessMsg('Deleted')
+        })
             .catch(() => showErrorMsg('failed to delete'))
     }
 
     function toggleShowAddModal() {
         setShowAddModal(showAddModal => !showAddModal)
+    }
+
+    function onToggleRead(ev, mail) {
+        ev.preventDefault()
+
+        mail.isRead = !mail.isRead
+        mailService.save(mail)
     }
 
     function getUnreadmails() {
@@ -64,12 +77,16 @@ export function MailIndex() {
         <section className="mail-index flex space-between">
             <nav>
                 <button onClick={toggleShowAddModal}>Compose</button>
-                <p>inbox {getUnreadmails()}</p>
+                <p onClick={() => setFilterBy('inbox')}>Inbox {getUnreadmails()}</p>
+                <p onClick={() => setFilterBy('sent')}>Sent</p>
+                <p onClick={() => setFilterBy('trash')}>Trash</p>
             </nav>
             <main>
                 {!mailId &&
-                    <MailList mails={mails} onPutMailToJunk={onPutMailToJunk} />
-                }
+                    <MailList mails={mails}
+                        onRemoveMail={onRemoveMail}
+                        onToggleRead={onToggleRead}
+                    />}
                 <Outlet />
                 {showAddModal && <AddMail saveMail={saveMail} toggleModal={toggleShowAddModal} />}
             </main>

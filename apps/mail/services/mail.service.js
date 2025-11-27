@@ -19,17 +19,19 @@ export const mailService = {
     // getSearchParams,
 }
 
-function query() {
+function query(filterBy) {
+    console.log('filterBY:', filterBy)
     return storageService.query(MAIL_KEY)
         .then(mails => {
-
-            // if (filterBy.txt) {
-            //     const regExp = new RegExp(filterBy.txt, 'i')
-            //     mails = mails.filter(mail => regExp.test(mail.title))
-            // }
-            // if (filterBy.maxPrice) {
-            //     mails = mails.filter(mail => mail.listPrice.amount < (filterBy.maxPrice))
-            // }
+            if (filterBy === 'inbox') {
+                mails = mails.filter(mail => !mail.removedAt && mail.from !== gLoggedinUser.email)
+            }
+            if (filterBy === 'sent') {
+                mails = mails.filter(mail => !mail.removedAt && mail.from === gLoggedinUser.email)
+            }
+            if (filterBy === 'trash') {
+                mails = mails.filter(mail => mail.removedAt)
+            }
             return mails
         })
 }
