@@ -12,8 +12,6 @@ export function NoteList({
   defaultFilter,
   onSetFilter,
 }) {
-  console.log(notes)
-
   return (
     <section className="note-list">
       <NoteFilter defaultFilter={defaultFilter} onSetFilter={onSetFilter} />

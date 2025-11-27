@@ -90,9 +90,13 @@ export function NoteIndex() {
     setFilterBy(filterBy => ({ ...filterBy, ...newFilterBy }))
   }
 
+  function setTypeFilter(type) {
+    setFilterBy(filterBy => ({ ...filterBy, type }))
+  }
+
   return (
     <section className="note-index note-main-layout">
-      <NoteSideBar />
+      <NoteSideBar setTypeFilter={setTypeFilter} />
       <NoteList
         notes={notes}
         saveNote={saveNote}

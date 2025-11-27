@@ -16,6 +16,7 @@ export const noteService = {
 }
 
 function query(filterBy = {}) {
+  console.log('filterBy', filterBy)
   return storageService.query(NOTE_KEY).then(notes => {
     if (filterBy.txt) {
       const regExp = new RegExp(filterBy.txt, 'i')
@@ -23,13 +24,16 @@ function query(filterBy = {}) {
         note => regExp.test(note.info.txt) || regExp.test(note.info.title)
       )
     }
-    // }
-    // if (filterBy.price) {
-    //   books = books.filter(book => book.listPrice.amount <= filterBy.price)
-    // }
-    // if (filterBy.pageCount) {
-    //   books = books.filter(book => book.pageCount <= filterBy.pageCount)
-    // }
+    if (filterBy.type === 'notes') notes = notes
+    else if (filterBy.type === 'texts')
+      notes = notes.filter(note => note.type === 'text')
+    else if (filterBy.type === 'photos')
+      notes = notes.filter(note => note.type === 'photo')
+    else if (filterBy.type === 'todos')
+      notes = notes.filter(note => note.type === 'todo')
+    else if (filterBy.type === 'videos')
+      notes = notes.filter(note => note.type === 'video')
+
     console.log(notes)
     return notes
   })
@@ -67,7 +71,7 @@ function getEmptyTodo(txt) {
 }
 
 function getDefaultFilter() {
-  return { txt: '' }
+  return { txt: '', type: 'notes' }
 }
 
 function _createNotes() {
