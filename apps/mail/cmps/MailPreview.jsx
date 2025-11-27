@@ -34,7 +34,7 @@ export function MailPreview({ mail, onRemoveMail, onToggleRead }) {
             {isHovering &&
                 <section>
                     <button onClick={event => onRemoveMail(event, mail)}>remove</button>
-                    <button onClick={event => onToggleRead(event, mail)}>mark read</button>
+                    <button onClick={event => onToggleRead(mail, event)}>mark read</button>
                 </section>
             }
         </article>

@@ -15,12 +15,12 @@ export const mailService = {
     remove,
     save,
     getEmptyMail,
+    getUnreadMails,
     // getDefaultFilter,
     // getSearchParams,
 }
 
-function query(filterBy) {
-    console.log('filterBy:', filterBy)
+function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
             if (filterBy.txt) {
@@ -28,13 +28,13 @@ function query(filterBy) {
                 mails = mails.filter(mail => regExp.test(mail.from))
             }
             if (filterBy.nav) {
-                if(filterBy.nav === 'inbox'){
+                if (filterBy.nav === 'inbox') {
                     mails = mails.filter(mail => !mail.removedAt && mail.from !== gLoggedinUser.email)
                 }
-                if(filterBy.nav === 'sent'){
+                if (filterBy.nav === 'sent') {
                     mails = mails.filter(mail => !mail.removedAt && mail.from === gLoggedinUser.email)
                 }
-                if(filterBy.nav === 'trash'){
+                if (filterBy.nav === 'trash') {
                     mails = mails.filter(mail => mail.removedAt && mail.from !== gLoggedinUser.email)
                 }
             }
@@ -70,6 +70,16 @@ function getEmptyMail(subject = '', body = '', sentAt = '', to = '') {
         from: gLoggedinUser.email,
         to,
     }
+}
+
+function getUnreadMails() {
+    return query().then(mails => {
+        let count = 0
+        for (let i = 0; i < mails.length; i++) {
+            if (!mails[i].isRead && !mails.removedAt && mails.from !== gLoggedinUser.email) count++
+        }
+        return count
+    })
 }
 
 // function getDefaultFilter() {
