@@ -65,53 +65,53 @@ export function OpenNote() {
   if (!note) return
   return (
     <div onClick={onBack} className="note-black-screen">
-      <form
-        onSubmit={onSaveNote}
-        onClick={ev => ev.stopPropagation()}
-        className="open-note"
-      >
-        <input
-          onChange={handleChange}
-          type="text"
-          placeholder="Title"
-          name="title"
-          value={note.info.title}
-        />
-        {note.type === 'text' && (
+      <form onSubmit={onSaveNote} onClick={ev => ev.stopPropagation()}>
+        <div className="full-note-input open-note">
           <input
             onChange={handleChange}
             type="text"
-            placeholder="Take a note..."
-            name="txt"
-            value={note.info.txt}
+            placeholder="Title"
+            name="title"
+            value={note.info.title}
           />
-        )}
-        {note.type === 'photo' && <img src={note.info.url} />}
-        {note.type === 'todo' && (
-          <div className="todo-input-container">
-            <ul className="todo-preview">
-              {note.info.todos.map((todo, idx) => (
-                <li key={todo.id}>
-                  <input
-                    name={todo.id}
-                    onChange={handleTodoChange}
-                    className="todo-input"
-                    type="text"
-                    placeholder="Add a todo..."
-                    value={todo.txt}
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-        {note.type === 'video' && (
-          <video className="video-input" controls>
-            <source src={note.info.url} type="video/mp4" />
-          </video>
-        )}
+          {note.type === 'text' && (
+            <input
+              onChange={handleChange}
+              type="text"
+              placeholder="Take a note..."
+              name="txt"
+              value={note.info.txt}
+            />
+          )}
+          {note.type === 'photo' && (
+            <img className="max-height " src={note.info.url} />
+          )}
+          {note.type === 'todo' && (
+            <div className="todo-input-container">
+              <ul className="todo-preview">
+                {note.info.todos.map((todo, idx) => (
+                  <li key={todo.id}>
+                    <input
+                      name={todo.id}
+                      onChange={handleTodoChange}
+                      className="todo-input"
+                      type="text"
+                      placeholder="Add a todo..."
+                      value={todo.txt}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {note.type === 'video' && (
+            <video className="video-input max-height " controls>
+              <source src={note.info.url} type="video/mp4" />
+            </video>
+          )}
 
-        <button style={{ display: 'none' }} />
+          <button style={{ display: 'none' }} />
+        </div>
       </form>
     </div>
   )
