@@ -7,6 +7,9 @@ export function MailPreview({ mail, onRemoveMail, onToggleRead }) {
     const { from, subject, body, sentAt, isRead } = mail
     const [isHovering, setIsHovering] = useState(false)
 
+    let month
+    let day
+
     function handleMouseEnter() {
         setIsHovering(true)
     }
@@ -17,9 +20,11 @@ export function MailPreview({ mail, onRemoveMail, onToggleRead }) {
 
     const userName = utilService.getUserName(from)
 
-    const date = new Date(sentAt)
-    const month = utilService.getMonthNameShort(date)
-    const day = date.getDate()
+    if (sentAt) {
+        const date = new Date(sentAt)
+        month = utilService.getMonthNameShort(date)
+        day = date.getDate()
+    }
 
     const classRead = isRead ? 'read' : ''
 

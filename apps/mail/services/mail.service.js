@@ -23,19 +23,27 @@ export const mailService = {
 function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
+            console.log('mails:', mails)
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
                 mails = mails.filter(mail => regExp.test(mail.from))
             }
             if (filterBy.nav) {
                 if (filterBy.nav === 'inbox') {
-                    mails = mails.filter(mail => !mail.removedAt && mail.from !== gLoggedinUser.email)
+                    mails = mails.filter(mail =>
+                        !mail.removedAt && mail.from !== gLoggedinUser.email)
                 }
                 if (filterBy.nav === 'sent') {
-                    mails = mails.filter(mail => !mail.removedAt && mail.from === gLoggedinUser.email)
+                    mails = mails.filter(mail =>
+                        !mail.removedAt && mail.from === gLoggedinUser.email && mail.sentAt)
                 }
                 if (filterBy.nav === 'trash') {
-                    mails = mails.filter(mail => mail.removedAt && mail.from !== gLoggedinUser.email)
+                    mails = mails.filter(mail =>
+                        mail.removedAt)
+                }
+                if (filterBy.nav === 'draft') {
+                    mails = mails.filter(mail =>
+                        !mail.removedAt && !mail.sentAt)
                 }
             }
             return mails
@@ -55,7 +63,6 @@ function save(mail) {
     if (mail.id) {
         return storageService.put(MAIL_KEY, mail)
     } else {
-        mail.sentAt = Date.now()
         return storageService.post(MAIL_KEY, mail)
     }
 }
@@ -76,7 +83,8 @@ function getUnreadMails() {
     return query().then(mails => {
         let count = 0
         for (let i = 0; i < mails.length; i++) {
-            if (!mails[i].isRead && !mails.removedAt && mails.from !== gLoggedinUser.email) count++
+            const mail = mails[i]
+            if (!mail.isRead && !mail.removedAt && mail.from !== gLoggedinUser.email) count++
         }
         return count
     })

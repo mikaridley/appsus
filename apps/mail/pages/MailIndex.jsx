@@ -31,7 +31,7 @@ export function MailIndex() {
     function saveMail(mail) {
         mailService.save(mail)
             .then(() => {
-                toggleShowAddModal()
+                onCloseModal(mail)
                 loadMails()
                 showSuccessMsg('Sent')
             })
@@ -56,8 +56,16 @@ export function MailIndex() {
             .catch(() => showErrorMsg('failed to delete'))
     }
 
-    function toggleShowAddModal() {
-        setShowAddModal(showAddModal => !showAddModal)
+    function openAddModal() {
+        setShowAddModal(true)
+    }
+
+    function onCloseModal(mail) {
+        setShowAddModal(false)
+        if (!mail.sentAt) {
+            mailService.save(mail)
+                .then(() => showSuccessMsg('Added to drafts'))
+        }
     }
 
     function onToggleRead(mail, ev = null) {
@@ -80,10 +88,11 @@ export function MailIndex() {
         <section className="mail-index flex space-between">
             <MailFilter onSetFilterBy={onSetFilterBy} />
             <nav>
-                <button onClick={toggleShowAddModal}>Compose</button>
+                <button onClick={openAddModal}>Compose</button>
                 <p onClick={() => setFilterBy({ nav: 'inbox' })}>Inbox {unreadCount}</p>
                 <p onClick={() => setFilterBy({ nav: 'sent' })}>Sent</p>
                 <p onClick={() => setFilterBy({ nav: 'trash' })}>Trash</p>
+                <p onClick={() => setFilterBy({ nav: 'draft' })}>Drafts</p>
             </nav>
             <main>
                 {!mailId &&
@@ -92,7 +101,7 @@ export function MailIndex() {
                         onToggleRead={onToggleRead}
                     />}
                 <Outlet context={onToggleRead} />
-                {showAddModal && <AddMail saveMail={saveMail} toggleModal={toggleShowAddModal} />}
+                {showAddModal && <AddMail saveMail={saveMail} onCloseModal={onCloseModal} />}
             </main>
         </section>
     )
