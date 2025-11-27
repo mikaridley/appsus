@@ -1,5 +1,4 @@
 const { Link, NavLink, useParams, useLocation } = ReactRouterDOM
-const { useState, useEffect } = React
 
 export function AppHeader() {
   const { pathname } = useLocation()

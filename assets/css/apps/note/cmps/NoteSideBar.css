@@ -36,7 +36,7 @@
 
   body.note-menu-open & {
     padding: 0.4rem;
-    margin-left: 1.3rem;
+    margin-left: 0.9rem;
     border-radius: 5rem;
 
     > p {
