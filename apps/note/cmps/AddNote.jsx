@@ -165,7 +165,7 @@ export function AddNote({ saveNote }) {
               />
               <img
                 onClick={() => onChangeNoteType('video')}
-                src="assets/img/note/photo.png"
+                src="assets/img/note/video.png"
               />
             </div>
 
