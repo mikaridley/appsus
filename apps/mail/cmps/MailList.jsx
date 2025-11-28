@@ -1,5 +1,4 @@
 import { MailPreview } from "./MailPreview.jsx"
-const { Link } = ReactRouterDOM
 
 export function MailList({ mails, onRemoveMail, onToggleRead, onToggleStar }) {
 
@@ -9,16 +8,14 @@ export function MailList({ mails, onRemoveMail, onToggleRead, onToggleStar }) {
             <ul>
                 {mails.map(mail =>
                     <li key={mail.id}>
-                        <Link to={`/mail/${mail.id}`}>
-                            <MailPreview mail={mail}
-                                onRemoveMail={onRemoveMail}
-                                onToggleRead={onToggleRead}
-                                onToggleStar={onToggleStar}
-                            />
-                        </Link>
+                        <MailPreview mail={mail}
+                            onRemoveMail={onRemoveMail}
+                            onToggleRead={onToggleRead}
+                            onToggleStar={onToggleStar}
+                        />
                     </li>
                 )}
             </ul>
-        </section>
+        </section >
     )
 }

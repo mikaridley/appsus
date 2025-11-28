@@ -1,6 +1,6 @@
 header {
-  background: var(--clr-note-bg-1);
-  border-bottom: 2px solid var(--clr-note-bg-3);
+  background: var(--bg-clr);
+  border-bottom: 2px solid var(--border-clr);
 }
 
 .app-header {
