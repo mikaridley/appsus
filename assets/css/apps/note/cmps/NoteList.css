@@ -106,6 +106,7 @@
         width: 25px;
         height: 25px;
         border-radius: 50%;
+        position: relative;
 
         &:hover {
           border: 1px, solid rgba(0, 0, 0, 0.649);
@@ -114,6 +115,25 @@
 
       .active {
         border: 2px, solid #a142f4;
+      }
+
+      .active::after {
+        content: '✓';
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 15px;
+        height: 15px;
+
+        background-color: #a142f4;
+        color: white;
+        border-radius: 50%;
+
+        position: absolute;
+        top: -7px;
+        right: -8px;
       }
     }
 
