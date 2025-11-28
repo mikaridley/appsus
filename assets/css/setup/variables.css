@@ -1,5 +1,6 @@
 :root {
-  --main-bg-color: lightblue;
+  --bg-clr: #ffffff;
+  --border-clr: #efeff1;
 
   /* Mail Vars */
   --mail-bg-clr: #f8fafd;
