@@ -12,9 +12,15 @@ export function AppHeader() {
 
   return (
     <header className="app-header">
-      <div onClick={toggleMenu} className="burger-container">
+      <div
+        onClick={toggleMenu}
+        className={`burger-container ${
+          pathname === '/note' || pathname === '/mail' ? '' : 'noBurger'
+        }`}
+      >
         <img className="burger" src="assets/img/note/burger.png" />
       </div>
+
       <Link to="/">
         {(pathname === '/' || pathname === '/about') && (
           <img className="logo" src="assets/img/main/logo-hub.png" />

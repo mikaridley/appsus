@@ -48,6 +48,10 @@ nav a.active {
 .burger {
   width: 60%;
   height: auto;
+
+  .noBurger & {
+    opacity: 0;
+  }
 }
 
 .logo {
