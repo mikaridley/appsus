@@ -1,17 +1,15 @@
 import { mailService } from "../services/mail.service.js"
 import { SideNav } from "../cmps/SideNav.jsx"
 import { MailList } from "../cmps/MailList.jsx"
-import { AddMail } from "../cmps/AddMail.jsx"
 import { MailFilter } from "../cmps/MailFilter.jsx"
 import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
 import { Loader } from '../../../cmps/Loader.jsx'
 
 const { useState, useEffect } = React
-const { Outlet, useParams } = ReactRouterDOM
+const { Outlet, useParams} = ReactRouterDOM
 
 export function MailIndex() {
     const [mails, setMails] = useState(null)
-    const [showAddModal, setShowAddModal] = useState(false)
     const [filterBy, setFilterBy] = useState({ nav: 'inbox' })
     const { mailId } = useParams()
 
@@ -29,21 +27,7 @@ export function MailIndex() {
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterByToEdit }))
     }
 
-    function saveMail(mail) {
-        mailService.save(mail)
-            .then(() => {
-                onCloseModal(mail)
-                loadMails()
-                showSuccessMsg('Sent')
-            })
-            .catch(err => {
-                console.log('err:', err)
-                showErrorMsg('Failed to send Mail')
-            })
-    }
-
     function onRemoveMail(ev, mail) {
-        ev.preventDefault()
         ev.stopPropagation()
 
         const mailId = mail.id
@@ -58,35 +42,23 @@ export function MailIndex() {
             .catch(() => showErrorMsg('failed to delete'))
     }
 
-    function onOpenModal() {
-        setShowAddModal(true)
-    }
-
-    function onCloseModal(mail) {
-        setShowAddModal(false)
-        if (!mail.sentAt) {
-            mailService.save(mail)
-                .then(() => showSuccessMsg('Added to drafts'))
-        }
-    }
-
     function onToggleRead(mail, ev = null) {
-        if (ev) ev.preventDefault()
+        if (ev) ev.stopPropagation()
 
         mail.isRead = !mail.isRead
         mailService.save(mail)
             .then(savedMail => {
-                setMails(mails.map(mail => mail.id === saveMail.id ? savedMail : mail))
+                setMails(mails.map(mail => mail.id === savedMail.id ? savedMail : mail))
             })
     }
 
     function onToggleStar(mail, ev = null) {
-        ev.preventDefault()
+        ev.stopPropagation()
 
         mail.isStarred = !mail.isStarred
         mailService.save(mail)
             .then(savedMail => {
-                setMails(mails.map(mail => mail.id === saveMail.id ? savedMail : mail))
+                setMails(mails.map(mail => mail.id === savedMail.id ? savedMail : mail))
             })
     }
 
@@ -95,7 +67,7 @@ export function MailIndex() {
     return (
         <section className="mail-index flex space-between">
             <MailFilter onSetFilterBy={onSetFilterBy} />
-            <SideNav onOpenModal={onOpenModal} setFilterBy={setFilterBy} />
+            <SideNav setFilterBy={setFilterBy} />
             <main>
                 {!mailId &&
                     <MailList mails={mails}
@@ -104,10 +76,6 @@ export function MailIndex() {
                         onToggleStar={onToggleStar}
                     />}
                 <Outlet context={onToggleRead} />
-                {showAddModal &&
-                    <AddMail saveMail={saveMail}
-                        onCloseModal={onCloseModal}
-                    />}
             </main>
         </section>
     )

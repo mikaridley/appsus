@@ -1,14 +1,16 @@
 import { mailService } from "../services/mail.service.js"
-const {useState} = React
+const { useState } = React
+const { Link } = ReactRouterDOM
 
-export function SideNav({ onOpenModal, setFilterBy }) {
-
+export function SideNav({  setFilterBy }) {
     const [unreadCount, setUnreadCount] = useState()
     mailService.getUnreadMails().then(setUnreadCount)
 
     return (
         <nav className="side-nav">
-            <button onClick={onOpenModal}>Compose</button>
+            <Link to="/mail/compose">
+                <button>Compose</button>
+            </Link>
             <p onClick={() => setFilterBy({ nav: 'inbox' })}>Inbox {unreadCount}</p>
             <p onClick={() => setFilterBy({ nav: 'starred' })}>Starred</p>
             <p onClick={() => setFilterBy({ nav: 'sent' })}>Sent</p>

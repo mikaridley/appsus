@@ -10,9 +10,15 @@
     box-shadow: 0px -1px 0px var(--mail-bg-clr1);
     cursor: pointer;
 
-    >h3 {
-        position: absolute;
-        left: 3rem;
+    >p {
+        font-weight: 700;
+
+        >span {
+            position: absolute;
+            top: 50%;
+            translate: 0 -50%;
+            left: 3rem;
+        }
     }
 
     section {
@@ -23,7 +29,7 @@
     &.read {
         background-color: var(--mail-bg-clr2);
 
-        >h3 {
+        >p {
             font-weight: normal;
         }
     }

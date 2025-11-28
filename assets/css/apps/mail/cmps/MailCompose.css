@@ -1,4 +1,4 @@
-.add-mail {
+.mail-compose {
     background-color: white;
     gap: .5rem;
 
@@ -57,6 +57,11 @@
 
     input:focus {
         outline: none;
+    }
+
+    &.loading {
+        opacity: .5;
+        pointer-events: none;
     }
 
 }
