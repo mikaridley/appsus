@@ -1,4 +1,8 @@
+const { useState } = React
+
 export function ColorPalete({ noteId, paintNote }) {
+  const [activeColor, setActiveColor] = useState('none')
+
   const coral = '#faafa8'
   const peach = '#f39f76'
   const sand = '#fff8b8'
@@ -15,52 +19,112 @@ export function ColorPalete({ noteId, paintNote }) {
   return (
     <div className="note-paint-palete">
       <div
-        onClick={() => paintNote(noteId, none)}
+        className={activeColor === 'none' ? 'active' : ''}
+        onClick={() => {
+          paintNote(noteId, none)
+          setActiveColor('none')
+        }}
         style={{ backgroundColor: none }}
+        title="Default"
       ></div>
       <div
-        onClick={() => paintNote(noteId, coral)}
+        className={activeColor === 'coral' ? 'active' : ''}
+        onClick={() => {
+          paintNote(noteId, coral)
+          setActiveColor('coral')
+        }}
         style={{ backgroundColor: coral }}
+        title="Coral"
       ></div>
       <div
-        onClick={() => paintNote(noteId, peach)}
+        className={activeColor === 'peach' ? 'active' : ''}
+        onClick={() => {
+          paintNote(noteId, peach)
+          setActiveColor('peach')
+        }}
         style={{ backgroundColor: peach }}
+        title="Peach"
       ></div>
       <div
-        onClick={() => paintNote(noteId, sand)}
+        className={activeColor === 'sand' ? 'active' : ''}
+        onClick={() => {
+          paintNote(noteId, sand)
+          setActiveColor('sand')
+        }}
         style={{ backgroundColor: sand }}
+        title="Sand"
       ></div>
       <div
-        onClick={() => paintNote(noteId, mint)}
+        className={activeColor === 'mint' ? 'active' : ''}
+        onClick={() => {
+          paintNote(noteId, mint)
+          setActiveColor('mint')
+        }}
         style={{ backgroundColor: mint }}
+        title="Mint"
       ></div>
       <div
-        onClick={() => paintNote(noteId, sage)}
+        className={activeColor === 'sage' ? 'active' : ''}
+        onClick={() => {
+          paintNote(noteId, sage)
+          setActiveColor('sage')
+        }}
         style={{ backgroundColor: sage }}
+        title="Sage"
       ></div>
       <div
-        onClick={() => paintNote(noteId, fog)}
+        className={activeColor === 'fog' ? 'active' : ''}
+        onClick={() => {
+          paintNote(noteId, fog)
+          setActiveColor('fog')
+        }}
         style={{ backgroundColor: fog }}
+        title="Fog"
       ></div>
       <div
-        onClick={() => paintNote(noteId, storm)}
+        className={activeColor === 'storm' ? 'active' : ''}
+        onClick={() => {
+          paintNote(noteId, storm)
+          setActiveColor('storm')
+        }}
         style={{ backgroundColor: storm }}
+        title="Storm"
       ></div>
       <div
-        onClick={() => paintNote(noteId, dusk)}
+        className={activeColor === 'dusk' ? 'active' : ''}
+        onClick={() => {
+          paintNote(noteId, dusk)
+          setActiveColor('dusk')
+        }}
         style={{ backgroundColor: dusk }}
+        title="Dusk"
       ></div>
       <div
-        onClick={() => paintNote(noteId, blossom)}
+        className={activeColor === 'blossom' ? 'active' : ''}
+        onClick={() => {
+          paintNote(noteId, blossom)
+          setActiveColor('blossom')
+        }}
         style={{ backgroundColor: blossom }}
+        title="Blossom"
       ></div>
       <div
-        onClick={() => paintNote(noteId, clay)}
+        className={activeColor === 'clay' ? 'active' : ''}
+        onClick={() => {
+          paintNote(noteId, clay)
+          setActiveColor('clay')
+        }}
         style={{ backgroundColor: clay }}
+        title="Clay"
       ></div>
       <div
-        onClick={() => paintNote(noteId, chalk)}
+        className={activeColor === 'chalk' ? 'active' : ''}
+        onClick={() => {
+          paintNote(noteId, chalk)
+          setActiveColor('chalk')
+        }}
         style={{ backgroundColor: chalk }}
+        title="Chalk"
       ></div>
     </div>
   )

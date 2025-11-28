@@ -11,7 +11,7 @@ export function AddNote({ saveNote }) {
 
   useEffect(() => {
     function handleClickOutside(ev) {
-      if (!wrapperRef.current.contains(ev.target)) {
+      if (wrapperRef.current && !wrapperRef.current.contains(ev.target)) {
         setIsFullInput(false)
       }
     }

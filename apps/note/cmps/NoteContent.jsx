@@ -40,6 +40,7 @@ export function NoteContent({
               <div className="note-header">
                 <h2 className="note-title">{info.title}</h2>
                 <img
+                  className="note-icon"
                   onClick={ev => {
                     ev.stopPropagation()
                     onPinNote(id)
@@ -56,6 +57,7 @@ export function NoteContent({
             </Link>
             <div className="note-icons">
               <img
+                className="note-icon"
                 onClick={ev => {
                   ev.stopPropagation()
                   onPaintNote(id)
@@ -63,6 +65,7 @@ export function NoteContent({
                 src="assets/img/note/paint.png"
               />
               <img
+                className="note-icon"
                 onClick={ev => {
                   ev.stopPropagation()
                   onRemoveNote(id)
