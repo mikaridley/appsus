@@ -1,11 +1,8 @@
 export function TodoNote({ info, noteId, toggleTodo }) {
-  const { title, todos } = info
-
   return (
     <React.Fragment>
-      <h2 className="note-title">{title}</h2>
       <ul className="note-todo">
-        {todos.map(todo => {
+        {info.todos.map(todo => {
           const todoClass = todo.isDone ? 'doto-done' : ''
           return (
             <li key={todo.id}>

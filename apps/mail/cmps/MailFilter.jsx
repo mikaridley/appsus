@@ -1,4 +1,4 @@
-const {useState} = React
+const { useState } = React
 
 export function MailFilter({ filterBy, onSetFilterBy }) {
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
@@ -17,16 +17,14 @@ export function MailFilter({ filterBy, onSetFilterBy }) {
                 break
         }
         setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
-    }
-
-    function onSubmitFilter(ev) {
-        ev.preventDefault()
         onSetFilterBy(filterByToEdit)
     }
 
     return (
-        <form className="mail-filter" onSubmit={onSubmitFilter}>
-            <input onChange={handleChange} type="text" name='txt' placeholder="Serch mail" />
-        </form>
+        <input className="mail-filter"
+            onChange={handleChange}
+            type="text" name='txt'
+            placeholder="Serch mail"
+        />
     )
 }

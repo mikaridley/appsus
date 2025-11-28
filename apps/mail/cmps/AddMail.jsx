@@ -2,11 +2,12 @@ import { mailService } from "../services/mail.service.js"
 
 const { useState } = React
 
-export function AddMail({ saveMail, toggleModal }) {
+export function AddMail({ saveMail, onCloseModal }) {
     const [mailToAdd, setMailToAdd] = useState(mailService.getEmptyMail())
 
     function onSaveMail(ev, mail) {
         ev.preventDefault()
+        mail.sentAt = Date.now()
         saveMail(mail)
     }
 
@@ -30,11 +31,11 @@ export function AddMail({ saveMail, toggleModal }) {
         <form className="add-mail flex column" onSubmit={event => onSaveMail(event, mailToAdd)}>
             <section className="flex space-between">
                 <p>New Message</p>
-                <button type="button" onClick={toggleModal}>x</button>
+                <button type="button" onClick={() => onCloseModal(mailToAdd)}>x</button>
             </section>
 
-            <input onChange={handleChange} name="to" id="to" placeHolder="To"></input>
-            <input onChange={handleChange} name="subject" id="subject" placeHolder="Subject"></input>
+            <input onChange={handleChange} name="to" id="to" placeholder="To"></input>
+            <input onChange={handleChange} name="subject" id="subject" placeholder="Subject"></input>
             <label>
                 <input onChange={handleChange} name="body"></input>
             </label>

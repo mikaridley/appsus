@@ -29,13 +29,24 @@ function query(filterBy = {}) {
             }
             if (filterBy.nav) {
                 if (filterBy.nav === 'inbox') {
-                    mails = mails.filter(mail => !mail.removedAt && mail.from !== gLoggedinUser.email)
+                    mails = mails.filter(mail =>
+                        !mail.removedAt && mail.from !== gLoggedinUser.email)
                 }
-                if (filterBy.nav === 'sent') {
-                    mails = mails.filter(mail => !mail.removedAt && mail.from === gLoggedinUser.email)
+                else if(filterBy.nav === 'starred'){
+                    mails = mails.filter(mail =>
+                        !mail.removedAt && mail.isStarred)
                 }
-                if (filterBy.nav === 'trash') {
-                    mails = mails.filter(mail => mail.removedAt && mail.from !== gLoggedinUser.email)
+                else if (filterBy.nav === 'sent') {
+                    mails = mails.filter(mail =>
+                        !mail.removedAt && mail.from === gLoggedinUser.email && mail.sentAt)
+                }
+                else if (filterBy.nav === 'trash') {
+                    mails = mails.filter(mail =>
+                        mail.removedAt)
+                }
+                else if (filterBy.nav === 'draft') {
+                    mails = mails.filter(mail =>
+                        !mail.removedAt && !mail.sentAt)
                 }
             }
             return mails
@@ -55,7 +66,6 @@ function save(mail) {
     if (mail.id) {
         return storageService.put(MAIL_KEY, mail)
     } else {
-        mail.sentAt = Date.now()
         return storageService.post(MAIL_KEY, mail)
     }
 }
@@ -66,6 +76,7 @@ function getEmptyMail(subject = '', body = '', sentAt = '', to = '') {
         subject,
         body,
         isRead: false,
+        isStarred: false,
         sentAt,
         from: gLoggedinUser.email,
         to,
@@ -76,7 +87,8 @@ function getUnreadMails() {
     return query().then(mails => {
         let count = 0
         for (let i = 0; i < mails.length; i++) {
-            if (!mails[i].isRead && !mails.removedAt && mails.from !== gLoggedinUser.email) count++
+            const mail = mails[i]
+            if (!mail.isRead && !mail.removedAt && mail.from !== gLoggedinUser.email) count++
         }
         return count
     })
@@ -117,10 +129,11 @@ function _createMails() {
                 body: `Hi team,Just a reminder that our check-in is
                  scheduled for 10:00 AM tomorrow. I’ll share the agenda shortly.`,
                 isRead: Math.random() > 0.5,
+                isStarred: Math.random() > 0.5,
                 sentAt: Date.now(),
                 removedAt: null,
                 from: "skyline.techhub27@gmail.com",
-                to: 'user@appsus.com'
+                to: 'user@appsus.com',
             },
             {
                 id: utilService.makeId(),
@@ -129,6 +142,7 @@ function _createMails() {
                 body: `Hey, Thanks for helping me with the report yesterday.
                  Your insights really made the difference. Appreciate it!`,
                 isRead: Math.random() > 0.5,
+                isStarred: Math.random() > 0.5,
                 sentAt: Date.now(),
                 removedAt: null,
                 from: 'nova.spark.engineer@outlook.com',
@@ -142,6 +156,7 @@ function _createMails() {
                  You can expect delivery within 3–5 business days.
                  Thanks for shopping with us!`,
                 isRead: Math.random() > 0.5,
+                isStarred: Math.random() > 0.5,
                 sentAt: Date.now(),
                 removedAt: null,
                 from: 'crystalwave.support@protonmail.com',
@@ -154,6 +169,7 @@ function _createMails() {
                 body: `Could you clarify the second point in your proposal?
                  I want to make sure we’re aligned before moving forward.`,
                 isRead: Math.random() > 0.5,
+                isStarred: Math.random() > 0.5,
                 sentAt: Date.now(),
                 removedAt: null,
                 from: 'orbitshift.studio@icloud.com',
@@ -166,6 +182,7 @@ function _createMails() {
                 body: `Hey, Just wanted to wish you a fantastic birthday!
                  Hope you get to relax and celebrate.`,
                 isRead: Math.random() > 0.5,
+                isStarred: Math.random() > 0.5,
                 sentAt: Date.now(),
                 removedAt: null,
                 from: 'hexabyte.admin2025@yahoo.com',
@@ -178,6 +195,7 @@ function _createMails() {
                 body: `Are you available for a 20-minute call on Thursday afternoon?
                  I’d like to review the new designs together. Let me know what works.`,
                 isRead: Math.random() > 0.5,
+                isStarred: Math.random() > 0.5,
                 sentAt: Date.now(),
                 removedAt: null,
                 from: 'lunarforge.creative@gmail.com',
@@ -190,6 +208,7 @@ function _createMails() {
                 body: `Good afternoon, Please find the invoice for this month attached to this email.
                  Let me know if you need anything else.`,
                 isRead: Math.random() > 0.5,
+                isStarred: Math.random() > 0.5,
                 sentAt: Date.now(),
                 removedAt: null,
                 from: 'zenithalpha.team@pm.me',
@@ -202,6 +221,7 @@ function _createMails() {
                 body: `Hi, Do you remember where we stored last year’s presentation files?
                  I can’t seem to find them in the shared drive.`,
                 isRead: Math.random() > 0.5,
+                isStarred: Math.random() > 0.5,
                 sentAt: Date.now(),
                 removedAt: null,
                 from: 'cobaltstream.data@fastmail.com',
@@ -214,6 +234,7 @@ function _createMails() {
                 body: `Hi, We’re excited to have you on board!
                  Your account access will be set up by the end of the day.`,
                 isRead: Math.random() > 0.5,
+                isStarred: Math.random() > 0.5,
                 sentAt: Date.now(),
                 removedAt: null,
                 from: 'pixelhaven.dev@outlook.com',
@@ -227,6 +248,7 @@ function _createMails() {
                  Thinking about checking out the new café downtown.
                  Let me know!`,
                 isRead: Math.random() > 0.5,
+                isStarred: Math.random() > 0.5,
                 sentAt: Date.now(),
                 removedAt: null,
                 from: 'auroracode.network@gmail.com',
