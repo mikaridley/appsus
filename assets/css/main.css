@@ -25,6 +25,7 @@
 @import './apps/note/cmps/OpenNote.css';
 @import './apps/note/cmps/AddNote.css';
 @import './apps/note/cmps/NoteFilter.css';
+@import './apps/note/cmps/InputFeatures.css';
 
 /* Mail */
 @import './apps/mail/cmps/MailList.css';

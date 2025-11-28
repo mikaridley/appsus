@@ -2,8 +2,13 @@
   text-align: center;
   margin-bottom: 2rem;
 
-  > form {
-    > input {
+  form {
+    .half-note-input {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: auto;
+
       width: 50vw;
       max-width: 600px;
       padding: 0.8rem;
@@ -11,8 +16,16 @@
       border-radius: 8px;
       box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 
-      font-size: 1rem;
       outline: none;
+      > input {
+        width: auto;
+        max-width: 600px;
+        border: none;
+        border-radius: 8px;
+
+        font-size: 1rem;
+        outline: none;
+      }
     }
 
     .full-note-input {
@@ -51,21 +64,6 @@
 
       .todo-preview {
         text-align: start;
-      }
-
-      .input-features {
-        display: flex;
-        gap: 1rem;
-        > img {
-          width: 20px;
-
-          &:hover {
-            background-color: rgba(174, 174, 174, 0.254);
-            border-radius: 50%;
-            box-shadow: 0 0 0 6px rgba(174, 174, 174, 0.254);
-            cursor: pointer;
-          }
-        }
       }
     }
   }

@@ -1,4 +1,5 @@
 import { noteService } from '../services/note.service.js'
+import { InputFeatures } from './InputFeatures.jsx'
 
 const { useState, useEffect, useRef } = React
 
@@ -111,11 +112,17 @@ export function AddNote({ saveNote }) {
     <div className="add-note">
       <form onSubmit={onSaveNote}>
         {!isFullInput ? (
-          <input
-            onClick={toggleFullAddNote}
-            type="text"
-            placeholder="Take a note..."
-          />
+          <div className="half-note-input">
+            <input
+              onClick={toggleFullAddNote}
+              type="text"
+              placeholder="Take a note..."
+            />
+            <InputFeatures
+              onChangeNoteType={onChangeNoteType}
+              toggleFullAddNote={toggleFullAddNote}
+            />
+          </div>
         ) : (
           <div className="full-note-input" ref={wrapperRef}>
             <input
@@ -165,28 +172,7 @@ export function AddNote({ saveNote }) {
               <input type="file" accept="video/*" onChange={onVideoUpload} />
             )}
 
-            <div className="input-features">
-              <img
-                onClick={() => onChangeNoteType('text')}
-                src="assets/img/note/text.png"
-                title="Add text"
-              />
-              <img
-                onClick={() => onChangeNoteType('photo')}
-                src="assets/img/note/photo.png"
-                title="Add photo"
-              />
-              <img
-                onClick={() => onChangeNoteType('todo')}
-                src="assets/img/note/todo.png"
-                title="Add todo"
-              />
-              <img
-                onClick={() => onChangeNoteType('video')}
-                src="assets/img/note/video.png"
-                title="Add video"
-              />
-            </div>
+            <InputFeatures onChangeNoteType={onChangeNoteType} />
 
             <button style={{ display: 'none' }} />
           </div>
