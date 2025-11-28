@@ -12,7 +12,7 @@ export function AppHeader() {
   return (
     <header className="app-header">
       <div onClick={toggleMenu} className="burger-container">
-        <img className="burger" src="assets/img/note/burger.svg" />
+        <img className="burger" src="assets/img/note/burger.png" />
       </div>
       <Link to="/">
         <h3>LOGO!</h3>

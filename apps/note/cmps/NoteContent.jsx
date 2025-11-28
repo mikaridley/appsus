@@ -37,6 +37,16 @@ export function NoteContent({
         return (
           <div key={id} className="note" style={style}>
             <Link to={`/note/${id}`}>
+              <div className="note-header">
+                <h2 className="note-title">{info.title}</h2>
+                <img
+                  onClick={ev => {
+                    ev.stopPropagation()
+                    onPinNote(id)
+                  }}
+                  src="assets/img/note/pin.png"
+                />
+              </div>
               <DynamicCmp
                 cmpType={type}
                 info={info}
@@ -48,23 +58,16 @@ export function NoteContent({
               <img
                 onClick={ev => {
                   ev.stopPropagation()
-                  onRemoveNote(id)
-                }}
-                src="assets/img/note/bin.svg"
-              />
-              <img
-                onClick={ev => {
-                  ev.stopPropagation()
                   onPaintNote(id)
                 }}
-                src="assets/img/note/paint.svg"
+                src="assets/img/note/paint.png"
               />
               <img
                 onClick={ev => {
                   ev.stopPropagation()
-                  onPinNote(id)
+                  onRemoveNote(id)
                 }}
-                src="assets/img/note/pin.svg"
+                src="assets/img/note/bin.png"
               />
             </div>
             {colorOpenId === id && (
