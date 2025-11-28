@@ -7,7 +7,7 @@ const { useParams, Link, useOutletContext } = ReactRouterDOM
 export function MailDetails() {
     const [mail, setMail] = useState(null)
     const { mailId } = useParams()
-    const onToggleRead = useOutletContext()
+    const { onToggleRead } = useOutletContext()
 
     useEffect(() => {
         loadMail()

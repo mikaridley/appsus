@@ -6,7 +6,7 @@ import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.servic
 import { Loader } from '../../../cmps/Loader.jsx'
 
 const { useState, useEffect } = React
-const { Outlet, useParams} = ReactRouterDOM
+const { Outlet, useParams } = ReactRouterDOM
 
 export function MailIndex() {
     const [mails, setMails] = useState(null)
@@ -62,6 +62,10 @@ export function MailIndex() {
             })
     }
 
+    function sendMailToNote({ subject, body }) {
+        console.log('subject:', subject)
+    }
+
     if (!mails) return <Loader />
 
     return (
@@ -75,7 +79,7 @@ export function MailIndex() {
                         onToggleRead={onToggleRead}
                         onToggleStar={onToggleStar}
                     />}
-                <Outlet context={onToggleRead} />
+                <Outlet context={{ onToggleRead, sendMailToNote }} />
             </main>
         </section>
     )

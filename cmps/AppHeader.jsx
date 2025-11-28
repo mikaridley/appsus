@@ -3,7 +3,6 @@ const { useState, useEffect } = React
 
 export function AppHeader() {
   const { pathname } = useLocation()
-  console.log(pathname)
   function toggleMenu() {
     if (pathname === '/note') {
       document.body.classList.toggle('note-menu-open')

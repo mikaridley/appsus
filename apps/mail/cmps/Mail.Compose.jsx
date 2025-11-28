@@ -1,14 +1,22 @@
 import { mailService } from "../services/mail.service.js"
+import { utilService } from "../../../services/util.service.js"
 import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
 
 const { useState, useEffect } = React
-const { useNavigate, useParams } = ReactRouterDOM
+const { useNavigate, useParams, useSearchParams, useOutletContext } = ReactRouterDOM
 
 export function MailCompose() {
     const [mail, setMail] = useState(mailService.getEmptyMail())
+    const [searchParams, setSearchParams] = useSearchParams()
     const [isLoading, setIsLoading] = useState(false)
     const { mailId } = useParams()
     const navigate = useNavigate()
+
+    const { sendMailToNote } = useOutletContext()
+
+    useEffect(() => {
+        setSearchParams(utilService.getValidValues({ subject, body }))
+    }, [mail])
 
     useEffect(() => {
         if (mailId) loadMail()
@@ -22,7 +30,11 @@ export function MailCompose() {
                 console.log('err:', err)
                 showErrorMsg('Failed to load mail')
             })
-            .finally(() => setIsLoading(false))
+            .finally(() => {
+                console.log('hi')
+                setIsLoading(false)
+            }
+            )
     }
 
     function onSaveMail(ev, mail) {
@@ -65,16 +77,32 @@ export function MailCompose() {
         setMail(prevMail => ({ ...prevMail, [field]: value }))
     }
 
-    const { to, subject, body } = mail
+    let { to, subject, body } = mail
+    if (searchParams.get('subject')) {
+        subject = searchParams.get('subject')
+    }
+    if (searchParams.get('body')) {
+        body = searchParams.get('body')
+    }
+
     const loadingClass = isLoading ? 'loading' : ''
 
     return (
         <form className={`mail-compose flex column ${loadingClass}`}
             onSubmit={event => onSaveMail(event, mail)}>
-                
+
             <section className="flex space-between">
                 <p>New Message</p>
                 <button type="button" onClick={() => onCloseModal(mail)}>x</button>
+                <button onClick={() =>
+                    sendMailToNote(
+                        {
+                            subject: searchParams.get('subject'),
+                            body: searchParams.get('body')
+                        }
+                    )}>
+                    Make note
+                </button>
             </section>
 
             <input onChange={handleChange} name="to" id="to"
