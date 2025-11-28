@@ -2,12 +2,34 @@ import { noteService } from '../services/note.service.js'
 import { InputFeatures } from './InputFeatures.jsx'
 
 const { useState, useEffect, useRef } = React
+const { useSearchParams } = ReactRouterDOM
 
 export function AddNote({ saveNote }) {
   const [noteToAdd, setNoteToAdd] = useState(noteService.getEmptyNote())
   const [todoTxt, setTodoTxt] = useState('')
   const [isFullInput, setIsFullInput] = useState(false)
   const wrapperRef = useRef(null)
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  useEffect(() => {
+    const title = searchParams.get('title')
+    const txt = searchParams.get('txt')
+
+    if (title) {
+      setIsFullInput(() => true)
+      setNoteToAdd(prevNote => ({
+        ...prevNote,
+        info: { ...prevNote.info, title },
+      }))
+    }
+    if (txt) {
+      setIsFullInput(prevState => true)
+      setNoteToAdd(prevNote => ({
+        ...prevNote,
+        info: { ...prevNote.info, txt },
+      }))
+    }
+  }, [searchParams])
 
   useEffect(() => {
     function handleClickOutside(ev) {
@@ -27,6 +49,8 @@ export function AddNote({ saveNote }) {
     ev.preventDefault()
     saveNote(noteToAdd)
     toggleFullAddNote()
+    setSearchParams({})
+    setNoteToAdd(noteService.getEmptyNote())
   }
 
   function toggleFullAddNote() {
@@ -108,6 +132,8 @@ export function AddNote({ saveNote }) {
     setTodoTxt('')
   }
 
+  const { title, txt } = noteToAdd.info
+
   return (
     <div className="add-note">
       <form onSubmit={onSaveNote}>
@@ -117,6 +143,7 @@ export function AddNote({ saveNote }) {
               onClick={toggleFullAddNote}
               type="text"
               placeholder="Take a note..."
+              value=""
             />
             <InputFeatures
               onChangeNoteType={onChangeNoteType}
@@ -130,6 +157,7 @@ export function AddNote({ saveNote }) {
               type="text"
               placeholder="Title"
               name="title"
+              value={title}
             />
             {noteToAdd.type === 'text' && (
               <input
@@ -137,6 +165,7 @@ export function AddNote({ saveNote }) {
                 type="text"
                 placeholder="Take a note..."
                 name="txt"
+                value={txt}
               />
             )}
             {noteToAdd.type === 'photo' && (
