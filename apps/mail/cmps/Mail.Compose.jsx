@@ -20,6 +20,15 @@ export function MailCompose() {
 
     useEffect(() => {
         if (mailId) loadMail()
+        if (searchParams.get('subject')) {
+            mail.subject = searchParams.get('subject')
+            setMail(mail)
+        }
+        if (searchParams.get('body')) {
+            mail.body = searchParams.get('body')
+            setMail(mail)
+        }
+
     }, [])
 
     function loadMail() {
@@ -77,13 +86,14 @@ export function MailCompose() {
         setMail(prevMail => ({ ...prevMail, [field]: value }))
     }
 
+    function mailToNote() {
+        const subject = searchParams.get('subject')
+        const body = searchParams.get('body')
+
+        navigate(`/note?title=${subject}&txt=${body}`)
+    }
+
     let { to, subject, body } = mail
-    if (searchParams.get('subject')) {
-        subject = searchParams.get('subject')
-    }
-    if (searchParams.get('body')) {
-        body = searchParams.get('body')
-    }
 
     const loadingClass = isLoading ? 'loading' : ''
 
@@ -94,15 +104,7 @@ export function MailCompose() {
             <section className="flex space-between">
                 <p>New Message</p>
                 <button type="button" onClick={() => onCloseModal(mail)}>x</button>
-                <button onClick={() =>
-                    sendMailToNote(
-                        {
-                            subject: searchParams.get('subject'),
-                            body: searchParams.get('body')
-                        }
-                    )}>
-                    Make note
-                </button>
+                <button onClick={mailToNote}>Make note</button>
             </section>
 
             <input onChange={handleChange} name="to" id="to"
