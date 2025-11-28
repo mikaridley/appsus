@@ -132,7 +132,7 @@ export function AddNote({ saveNote }) {
     setTodoTxt('')
   }
 
-  const { title, txt } = noteToAdd.info
+  const { title, txt } = noteToAdd.info || {}
 
   return (
     <div className="add-note">
@@ -144,6 +144,7 @@ export function AddNote({ saveNote }) {
               type="text"
               placeholder="Take a note..."
               value=""
+              onChange={handleChange}
             />
             <InputFeatures
               onChangeNoteType={onChangeNoteType}
@@ -157,7 +158,7 @@ export function AddNote({ saveNote }) {
               type="text"
               placeholder="Title"
               name="title"
-              value={title}
+              value={title || ''}
             />
             {noteToAdd.type === 'text' && (
               <input
@@ -165,7 +166,7 @@ export function AddNote({ saveNote }) {
                 type="text"
                 placeholder="Take a note..."
                 name="txt"
-                value={txt}
+                value={txt || ''}
               />
             )}
             {noteToAdd.type === 'photo' && (
@@ -201,7 +202,10 @@ export function AddNote({ saveNote }) {
               <input type="file" accept="video/*" onChange={onVideoUpload} />
             )}
 
-            <InputFeatures onChangeNoteType={onChangeNoteType} />
+            {/* <InputFeatures
+              onChangeNoteType={onChangeNoteType}
+              toggleFullAddNote={toggleFullAddNote}
+            /> */}
 
             <button style={{ display: 'none' }} />
           </div>
