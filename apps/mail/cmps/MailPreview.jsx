@@ -5,6 +5,7 @@ const { useNavigate } = ReactRouterDOM
 
 export function MailPreview({ mail, onRemoveMail, onToggleRead, onToggleStar }) {
     const { from, subject, body, sentAt, isRead, isStarred } = mail
+
     const [isHovering, setIsHovering] = useState(false)
     const navigate = useNavigate()
 
@@ -21,14 +22,14 @@ export function MailPreview({ mail, onRemoveMail, onToggleRead, onToggleStar }) 
         else navigate(`/mail/compose/${mail.id}`)
     }
 
-    let month
-    let day
+    let month = ''
+    let day = ''
     if (sentAt) {
         const date = new Date(sentAt)
         month = utilService.getMonthNameShort(date)
         day = date.getDate()
     }
-    
+
     const userName = utilService.getUserName(from)
 
     const classRead = isRead ? 'read' : ''
@@ -45,8 +46,8 @@ export function MailPreview({ mail, onRemoveMail, onToggleRead, onToggleStar }) 
                 onClick={event => onToggleStar(mail, event)}></i>
             <p><span>{userName}</span></p>
             <p className="content">{subject} - {body}</p>
-            {!isHovering && <p>{day} {month}</p>}
 
+            {!isHovering && <p>{day} {month}</p>}
             {isHovering &&
                 <section className="flex">
                     <i className="fa-regular fa-trash-can"

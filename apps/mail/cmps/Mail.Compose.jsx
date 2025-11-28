@@ -3,16 +3,16 @@ import { utilService } from "../../../services/util.service.js"
 import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.service.js"
 
 const { useState, useEffect } = React
-const { useNavigate, useParams, useSearchParams, useOutletContext } = ReactRouterDOM
+const { useNavigate, useParams, useSearchParams } = ReactRouterDOM
 
 export function MailCompose() {
     const [mail, setMail] = useState(mailService.getEmptyMail())
-    const [searchParams, setSearchParams] = useSearchParams()
     const [isLoading, setIsLoading] = useState(false)
-    const { mailId } = useParams()
-    const navigate = useNavigate()
 
-    const { sendMailToNote } = useOutletContext()
+    const [searchParams, setSearchParams] = useSearchParams()
+    const { mailId } = useParams()
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         setSearchParams(utilService.getValidValues({ subject, body }))
@@ -28,22 +28,14 @@ export function MailCompose() {
             mail.body = searchParams.get('body')
             setMail(mail)
         }
-
     }, [])
 
     function loadMail() {
         setIsLoading(true)
         mailService.get(mailId)
             .then(setMail)
-            .catch(err => {
-                console.log('err:', err)
-                showErrorMsg('Failed to load mail')
-            })
-            .finally(() => {
-                console.log('hi')
-                setIsLoading(false)
-            }
-            )
+            .catch(() => showErrorMsg('Failed to load mail'))
+            .finally(() => setIsLoading(false))
     }
 
     function onSaveMail(ev, mail) {
@@ -55,10 +47,7 @@ export function MailCompose() {
                 onCloseModal(mail)
                 showSuccessMsg('Sent')
             })
-            .catch(err => {
-                console.log('err:', err)
-                showErrorMsg('Failed to send Mail')
-            })
+            .catch(() => showErrorMsg('Failed to send Mail'))
     }
 
     function onCloseModal(mail) {
@@ -90,12 +79,11 @@ export function MailCompose() {
         const subject = searchParams.get('subject')
         const body = searchParams.get('body')
 
-        navigate(`/note?title=${subject}&txt=${body}`)
+        navigate(`/note?title=${subject}&txt=${body}&fromMail=${true}`)
     }
 
-    let { to, subject, body } = mail
-
     const loadingClass = isLoading ? 'loading' : ''
+    let { to, subject, body } = mail
 
     return (
         <form className={`mail-compose flex column ${loadingClass}`}

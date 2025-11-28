@@ -20,10 +20,10 @@ export function MailDetails() {
     }
 
     if (!mail) return <Loader />
-
     if (!mail.isRead) onToggleRead(mail)
 
     const { from, subject, body, sentAt } = mail
+    
     return (
         <section className="mail-details">
             <h1>{subject}</h1>

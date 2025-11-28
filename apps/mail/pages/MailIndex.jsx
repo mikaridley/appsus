@@ -6,12 +6,13 @@ import { showSuccessMsg, showErrorMsg } from "../../../services/event-bus.servic
 import { Loader } from '../../../cmps/Loader.jsx'
 
 const { useState, useEffect } = React
-const { Outlet, useParams } = ReactRouterDOM
+const { Outlet, useParams, useNavigate } = ReactRouterDOM
 
 export function MailIndex() {
     const [mails, setMails] = useState(null)
     const [filterBy, setFilterBy] = useState({ nav: 'inbox' })
     const { mailId } = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
         loadMails()
@@ -24,6 +25,7 @@ export function MailIndex() {
     }
 
     function onSetFilterBy(filterByToEdit) {
+        if (filterByToEdit.nav) navigate('/mail')
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterByToEdit }))
     }
 
@@ -71,7 +73,7 @@ export function MailIndex() {
     return (
         <section className="mail-index flex space-between">
             <MailFilter onSetFilterBy={onSetFilterBy} />
-            <SideNav setFilterBy={setFilterBy} />
+            <SideNav onSetFilterBy={onSetFilterBy} />
             <main>
                 {!mailId &&
                     <MailList mails={mails}
