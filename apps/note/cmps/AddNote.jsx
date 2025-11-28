@@ -1,11 +1,26 @@
 import { noteService } from '../services/note.service.js'
 
-const { useState, useEffect } = React
+const { useState, useEffect, useRef } = React
 
 export function AddNote({ saveNote }) {
   const [noteToAdd, setNoteToAdd] = useState(noteService.getEmptyNote())
   const [todoTxt, setTodoTxt] = useState('')
   const [isFullInput, setIsFullInput] = useState(false)
+  const wrapperRef = useRef(null)
+
+  useEffect(() => {
+    function handleClickOutside(ev) {
+      if (!wrapperRef.current.contains(ev.target)) {
+        setIsFullInput(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   function onSaveNote(ev) {
     ev.preventDefault()
@@ -102,7 +117,7 @@ export function AddNote({ saveNote }) {
             placeholder="Take a note..."
           />
         ) : (
-          <div className="full-note-input">
+          <div className="full-note-input" ref={wrapperRef}>
             <input
               onChange={handleChange}
               type="text"
@@ -154,18 +169,22 @@ export function AddNote({ saveNote }) {
               <img
                 onClick={() => onChangeNoteType('text')}
                 src="assets/img/note/text.png"
+                title="Add text"
               />
               <img
                 onClick={() => onChangeNoteType('photo')}
                 src="assets/img/note/photo.png"
+                title="Add photo"
               />
               <img
                 onClick={() => onChangeNoteType('todo')}
                 src="assets/img/note/todo.png"
+                title="Add todo"
               />
               <img
                 onClick={() => onChangeNoteType('video')}
                 src="assets/img/note/video.png"
+                title="Add video"
               />
             </div>
 

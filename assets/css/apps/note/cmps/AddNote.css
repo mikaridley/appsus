@@ -14,51 +14,59 @@
       font-size: 1rem;
       outline: none;
     }
-  }
-}
 
-.full-note-input {
-  width: 50vw;
-  max-width: 600px;
-  border: 1px solid #dadce0;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
-  margin: auto;
-  border-radius: 15px;
+    .full-note-input {
+      width: 50vw;
+      max-width: 600px;
+      border: 1px solid #dadce0;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.642);
+      margin: auto;
+      border-radius: 15px;
 
-  display: grid;
+      display: grid;
 
-  overflow: hidden;
+      overflow: hidden;
 
-  > * {
-    padding: 0.8rem;
-    border: none;
-    font-size: 1rem;
-    outline: none;
-  }
+      > * {
+        padding: 0.8rem;
+        border: none;
+        font-size: 1rem;
+        outline: none;
+      }
 
-  > :nth-child(1) {
-    font-weight: bold;
-    font-size: 1.5rem;
-  }
-}
+      > :nth-child(1) {
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
 
-.todo-input-container {
-  justify-self: start;
-}
+      .todo-input-container {
+        justify-self: start;
+      }
 
-.todo-input {
-  outline: none;
-  border: none;
-  font-size: 1rem;
-}
+      .todo-input {
+        outline: none;
+        border: none;
+        font-size: 1rem;
+      }
 
-.todo-preview {
-  text-align: start;
-}
+      .todo-preview {
+        text-align: start;
+      }
 
-.input-features {
-  display: flex;
-  > img {
-    width: 20px;
+      .input-features {
+        display: flex;
+        gap: 1rem;
+        > img {
+          width: 20px;
+
+          &:hover {
+            background-color: rgba(174, 174, 174, 0.254);
+            border-radius: 50%;
+            box-shadow: 0 0 0 6px rgba(174, 174, 174, 0.254);
+            cursor: pointer;
+          }
+        }
+      }
+    }
   }
 }
