@@ -28,7 +28,7 @@ export function NoteSideBar({ setTypeFilter }) {
         onClick={() => onSetPage('notes')}
         className={`side-bar-row ${activePage === 'notes' ? 'active' : ''}`}
       >
-        <img src="assets/img/note/light-bulb.svg" />
+        <img src="assets/img/note/bulb.png" />
         <p>Notes</p>
       </div>
       <div
