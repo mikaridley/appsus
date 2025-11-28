@@ -11,15 +11,16 @@ const { Outlet, useParams, useNavigate } = ReactRouterDOM
 export function MailIndex() {
     const [mails, setMails] = useState(null)
     const [filterBy, setFilterBy] = useState({ nav: 'inbox' })
+    const [sortBy, setSortBy] = useState({ sort: 'date-down' })
     const { mailId } = useParams()
     const navigate = useNavigate()
 
     useEffect(() => {
         loadMails()
-    }, [filterBy])
+    }, [filterBy, sortBy])
 
     function loadMails() {
-        mailService.query(filterBy)
+        mailService.query(filterBy, sortBy)
             .then(setMails)
             .catch(console.log)
     }
@@ -27,6 +28,10 @@ export function MailIndex() {
     function onSetFilterBy(filterByToEdit) {
         if (filterByToEdit.nav) navigate('/mail')
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterByToEdit }))
+    }
+
+    function onSetSortBy(sortByToEdit) {
+        setSortBy(sortByToEdit)
     }
 
     function onRemoveMail(ev, mail) {
@@ -64,10 +69,6 @@ export function MailIndex() {
             })
     }
 
-    function sendMailToNote({ subject, body }) {
-        console.log('subject:', subject)
-    }
-
     if (!mails) return <Loader />
 
     return (
@@ -77,11 +78,12 @@ export function MailIndex() {
             <main>
                 {!mailId &&
                     <MailList mails={mails}
+                        onSetSortBy={onSetSortBy}
                         onRemoveMail={onRemoveMail}
                         onToggleRead={onToggleRead}
                         onToggleStar={onToggleStar}
                     />}
-                <Outlet context={{ onToggleRead, sendMailToNote }} />
+                <Outlet context={{ onToggleRead }} />
             </main>
         </section>
     )

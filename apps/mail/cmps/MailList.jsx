@@ -1,9 +1,14 @@
 import { MailPreview } from "./MailPreview.jsx"
 
-export function MailList({ mails, onRemoveMail, onToggleRead, onToggleStar }) {
+export function MailList({ mails, onSetSortBy, onRemoveMail, onToggleRead, onToggleStar }) {
     return (
         <section className="mail-list">
-            <h1>filter</h1>
+            <select onChange={event => onSetSortBy({ sort: event.target.value })}>
+                <option value="date-down">new to old</option>
+                <option value="date-up">old to new</option>
+                <option value="from-down">A-Z</option>
+                <option value="from-up">Z-A</option>
+            </select>
             <ul>
                 {mails.map(mail =>
                     <li key={mail.id}>

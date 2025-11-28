@@ -20,37 +20,13 @@ export const mailService = {
     getSearchParams,
 }
 
-function query(filterBy = {}) {
+function query(filterBy = {}, sortBy = {}) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
-            if (filterBy.txt) {
-                const regExp = new RegExp(filterBy.txt, 'i')
-                mails = mails.filter(mail =>
-                    regExp.test(mail.from) || regExp.test(mail.subject) || regExp.test(mail.body))
-            }
-            
-            if (filterBy.nav) {
-                if (filterBy.nav === 'inbox') {
-                    mails = mails.filter(mail =>
-                        !mail.removedAt && mail.from !== gLoggedinUser.email && mail.sentAt)
-                }
-                else if (filterBy.nav === 'starred') {
-                    mails = mails.filter(mail =>
-                        !mail.removedAt && mail.isStarred)
-                }
-                else if (filterBy.nav === 'sent') {
-                    mails = mails.filter(mail =>
-                        !mail.removedAt && mail.from === gLoggedinUser.email && mail.sentAt)
-                }
-                else if (filterBy.nav === 'trash') {
-                    mails = mails.filter(mail =>
-                        mail.removedAt)
-                }
-                else if (filterBy.nav === 'draft') {
-                    mails = mails.filter(mail =>
-                        !mail.removedAt && !mail.sentAt)
-                }
-            }
+            if (sortBy) mails = _sortBy(mails, sortBy.sort)
+            if (filterBy.txt) mails = _filterByTxt(mails, filterBy.txt)
+            if (filterBy.nav) mails = _filterByNav(mails, filterBy.nav)
+
             return mails
         })
 }
@@ -103,6 +79,46 @@ function getSearchParams(searchParams) {
         subject,
         body
     }
+}
+
+function _sortBy(mails, sort) {
+    if (sort === 'date-down') {
+        mails.sort((m1, m2) => (m1.sentAt - m2.sentAt) * -1)
+    } else if (sort === 'date-up') {
+        mails.sort((m1, m2) => (m1.sentAt - m2.sentAt))
+    } else if (sort === 'from-up') {
+        mails.sort((m1, m2) => m1.from.localeCompare(m2.from) * -1)
+    } else if (sort === 'from-down') {
+        mails.sort((m1, m2) => m1.from.localeCompare(m2.from))
+    }
+    return mails
+}
+
+function _filterByTxt(mails, txt) {
+    const regExp = new RegExp(txt, 'i')
+    mails = mails.filter(mail =>
+        regExp.test(mail.from) || regExp.test(mail.subject) || regExp.test(mail.body))
+    return mails
+}
+
+function _filterByNav(mails, nav) {
+    if (nav === 'inbox') {
+        mails = mails.filter(mail =>
+            !mail.removedAt && mail.from !== gLoggedinUser.email && mail.sentAt)
+    } else if (nav === 'starred') {
+        mails = mails.filter(mail =>
+            !mail.removedAt && mail.isStarred)
+    } else if (nav === 'sent') {
+        mails = mails.filter(mail =>
+            !mail.removedAt && mail.from === gLoggedinUser.email && mail.sentAt)
+    } else if (nav === 'trash') {
+        mails = mails.filter(mail =>
+            mail.removedAt)
+    } else if (nav === 'draft') {
+        mails = mails.filter(mail =>
+            !mail.removedAt && !mail.sentAt)
+    }
+    return mails
 }
 
 function _setNextPrevMailId(mail) {
