@@ -147,7 +147,7 @@ function debounce(func, delay) {
   }
 }
 
-export function getValidValues(obj) {
+function getValidValues(obj) {
   const newObj = {}
   for (const key in obj) {
     const value = obj[key]

@@ -17,8 +17,7 @@ export const mailService = {
     save,
     getEmptyMail,
     getUnreadMails,
-    // getDefaultFilter,
-    // getSearchParams,
+    getSearchParams,
 }
 
 function query(filterBy = {}) {
@@ -95,18 +94,14 @@ function getUnreadMails() {
     })
 }
 
-// function getDefaultFilter() {
-//     return { txt: '', maxPrice: '' }
-// }
-
-// function getSearchParams(searchParams) {
-//     const txt = searchParams.get('txt') || ''
-//     const maxPrice = searchParams.get('maxPrice') || ''
-//     return {
-//         txt,
-//         maxPrice
-//     }
-// }
+function getSearchParams(searchParams) {
+    const subject = searchParams.get('subject') || ''
+    const body = searchParams.get('body') || ''
+    return {
+        subject,
+        body
+    }
+}
 
 function _setNextPrevMailId(mail) {
     return query().then((mails) => {
