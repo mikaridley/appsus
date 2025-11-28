@@ -86,7 +86,7 @@ export function OpenNote() {
   return (
     <div onClick={onBack} className="note-black-screen">
       <form onSubmit={onSaveNote} onClick={ev => ev.stopPropagation()}>
-        <div className="full-note-input open-note">
+        <div className=" open-note">
           <img
             className="note-icon"
             onClick={noteToMail}

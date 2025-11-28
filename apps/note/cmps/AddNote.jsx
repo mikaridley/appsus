@@ -144,7 +144,6 @@ export function AddNote({ saveNote }) {
               type="text"
               placeholder="Take a note..."
               value=""
-              onChange={handleChange}
             />
             <InputFeatures
               onChangeNoteType={onChangeNoteType}
