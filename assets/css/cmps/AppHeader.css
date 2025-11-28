@@ -9,6 +9,7 @@ header {
   justify-items: start;
   align-items: center;
   padding: 20px;
+  text-transform: uppercase;
 
   > :nth-child(3) {
     justify-self: end;
@@ -47,4 +48,8 @@ nav a.active {
 .burger {
   width: 60%;
   height: auto;
+}
+
+.logo {
+  width: 250px;
 }

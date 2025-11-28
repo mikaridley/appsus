@@ -1,8 +1,9 @@
 const { Link, NavLink, useParams, useLocation } = ReactRouterDOM
+const { useState, useEffect } = React
 
 export function AppHeader() {
   const { pathname } = useLocation()
-
+  console.log(pathname)
   function toggleMenu() {
     if (pathname === '/note') {
       document.body.classList.toggle('note-menu-open')
@@ -15,13 +16,25 @@ export function AppHeader() {
         <img className="burger" src="assets/img/note/burger.png" />
       </div>
       <Link to="/">
-        <h3>LOGO!</h3>
+        {(pathname === '/' || pathname === '/about') && (
+          <img className="logo" src="assets/img/main/logo-hub.png" />
+        )}
+        {pathname === '/mail' && (
+          <img className="logo" src="assets/img/main/logo-email.png" />
+        )}
+        {pathname === '/note' && (
+          <img className="logo" src="assets/img/main/logo-notes.png" />
+        )}
+        {pathname === '/book' && (
+          <img className="logo" src="assets/img/main/logo-books.png" />
+        )}
       </Link>
       <nav>
         <NavLink to="/">Home</NavLink>
-        <NavLink to="/about">About</NavLink>
         <NavLink to="/mail">Mail</NavLink>
-        <NavLink to="/note">Note</NavLink>
+        <NavLink to="/note">Notes</NavLink>
+        <NavLink to="/book">Books</NavLink>
+        <NavLink to="/about">About us</NavLink>
       </nav>
     </header>
   )
