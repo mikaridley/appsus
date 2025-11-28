@@ -8,7 +8,7 @@ import { OpenNote } from '../cmps/OpenNote.jsx'
 import { noteService } from '../services/note.service.js'
 
 const { useState, useEffect } = React
-const { Outlet } = ReactRouterDOM
+const { Outlet, useParams } = ReactRouterDOM
 
 export function NoteIndex() {
   const [notes, setNotes] = useState([])
@@ -114,7 +114,7 @@ export function NoteIndex() {
         defaultFilter={filterBy}
         onSetFilter={onSetFilter}
       />
-      <Outlet context={{ saveNote }} />
+      <Outlet context={{ saveNote, sendNoteToMail }} />
     </section>
   )
 }

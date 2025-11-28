@@ -10,7 +10,7 @@ export function OpenNote() {
   const { noteId } = useParams()
   const [note, setNote] = useState(null)
   const navigate = useNavigate()
-  const { saveNote } = useOutletContext()
+  const { saveNote, sendNoteToMail } = useOutletContext()
   const [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
@@ -78,6 +78,21 @@ export function OpenNote() {
     <div onClick={onBack} className="note-black-screen">
       <form onSubmit={onSaveNote} onClick={ev => ev.stopPropagation()}>
         <div className="full-note-input open-note">
+          <img
+            className="note-icon"
+            onClick={ev => {
+              ev.stopPropagation()
+              const params = {
+                title: searchParams.get('title'),
+                txt: searchParams.get('txt'),
+              }
+              navigate(
+                `/mail/compose?subject=${params.title}&body=${params.txt}`
+              )
+              noteService.sendNoteToMail(params)
+            }}
+            src="assets/img/note/bin.png"
+          />
           <input
             onChange={handleChange}
             type="text"

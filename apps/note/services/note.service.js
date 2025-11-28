@@ -14,6 +14,7 @@ export const noteService = {
   getEmptyTodo,
   getDefaultFilter,
   getFilterFromSearchParams,
+  sendNoteToMail,
 }
 
 function query(filterBy = {}) {
@@ -80,6 +81,10 @@ function getFilterFromSearchParams(searchParams) {
     title,
     txt,
   }
+}
+
+function sendNoteToMail({ title, txt }) {
+  console.log('hi', title, txt)
 }
 
 function _createNotes() {
