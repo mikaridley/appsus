@@ -72,6 +72,15 @@ export function OpenNote() {
     })
   }
 
+  function noteToMail(ev) {
+    ev.stopPropagation()
+
+    const title = searchParams.get('title')
+    const txt = searchParams.get('txt')
+
+    navigate(`/mail/compose?subject=${title}&body=${txt}`)
+  }
+
   if (!note) return
 
   return (
@@ -80,16 +89,7 @@ export function OpenNote() {
         <div className="full-note-input open-note">
           <img
             className="note-icon"
-            onClick={ev => {
-              ev.stopPropagation()
-              const params = {
-                title: searchParams.get('title'),
-                txt: searchParams.get('txt'),
-              }
-              navigate(
-                `/mail/compose?subject=${params.title}&body=${params.txt}`
-              )
-            }}
+            onClick={noteToMail}
             src="assets/img/note/bin.png"
           />
           <input
