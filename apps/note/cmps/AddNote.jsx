@@ -12,6 +12,9 @@ export function AddNote({ saveNote }) {
   const [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
+    const fromMail = searchParams.get('fromMail')
+    if (!fromMail) return
+
     const title = searchParams.get('title')
     const txt = searchParams.get('txt')
 
