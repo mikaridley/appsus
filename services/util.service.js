@@ -12,6 +12,7 @@ export const utilService = {
   getMonthNameShort,
   getUserName,
   debounce,
+  getValidValues,
 }
 
 function saveToStorage(key, val) {
@@ -144,4 +145,15 @@ function debounce(func, delay) {
       func(...args)
     }, delay)
   }
+}
+
+export function getValidValues(obj) {
+  const newObj = {}
+  for (const key in obj) {
+    const value = obj[key]
+    if (value) {
+      newObj[key] = value
+    }
+  }
+  return newObj
 }

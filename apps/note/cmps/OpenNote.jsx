@@ -1,7 +1,9 @@
 import { noteService } from '../services/note.service.js'
+import { utilService } from '../../../services/util.service.js'
 import { Loader } from '../../../cmps/Loader.jsx'
 
-const { useParams, useNavigate, useOutletContext } = ReactRouterDOM
+const { useParams, useNavigate, useOutletContext, useSearchParams } =
+  ReactRouterDOM
 const { useState, useEffect } = React
 
 export function OpenNote() {
@@ -9,6 +11,13 @@ export function OpenNote() {
   const [note, setNote] = useState(null)
   const navigate = useNavigate()
   const { saveNote } = useOutletContext()
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  useEffect(() => {
+    if (!note) return
+    const { title, txt } = note.info
+    setSearchParams(utilService.getValidValues({ title, txt }))
+  }, [note])
 
   useEffect(() => {
     loadNote()
@@ -62,7 +71,9 @@ export function OpenNote() {
       }
     })
   }
+
   if (!note) return
+
   return (
     <div onClick={onBack} className="note-black-screen">
       <form onSubmit={onSaveNote} onClick={ev => ev.stopPropagation()}>

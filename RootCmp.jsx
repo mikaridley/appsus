@@ -5,7 +5,6 @@ import { About } from './pages/About.jsx'
 import { Home } from './pages/Home.jsx'
 import { MailIndex } from './apps/mail/pages/MailIndex.jsx'
 import { NoteIndex } from './apps/note/pages/NoteIndex.jsx'
-import { BookIndex } from './apps/books/pages/BookIndex.jsx'
 import { UserMsg } from './cmps/UserMsg.jsx'
 import { OpenNote } from './apps/note/cmps/OpenNote.jsx'
 import { AppHeader } from './cmps/AppHeader.jsx'
@@ -29,7 +28,7 @@ export function App() {
           <Route path="/note" element={<NoteIndex />}>
             <Route path="/note/:noteId" element={<OpenNote />} />
           </Route>
-          {/* <Route path="/book" element={<BookIndex />} /> */}
+          <Route path="/book" element={<Home />} />
         </Routes>
         <UserMsg />
       </section>

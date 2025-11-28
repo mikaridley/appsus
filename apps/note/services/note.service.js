@@ -13,10 +13,10 @@ export const noteService = {
   getEmptyNote,
   getEmptyTodo,
   getDefaultFilter,
+  getFilterFromSearchParams,
 }
 
 function query(filterBy = {}) {
-  console.log('filterBy', filterBy)
   return storageService.query(NOTE_KEY).then(notes => {
     if (filterBy.txt) {
       const regExp = new RegExp(filterBy.txt, 'i')
@@ -34,7 +34,6 @@ function query(filterBy = {}) {
     else if (filterBy.type === 'videos')
       notes = notes.filter(note => note.type === 'video')
 
-    console.log(notes)
     return notes
   })
 }
@@ -72,6 +71,15 @@ function getEmptyTodo(txt) {
 
 function getDefaultFilter() {
   return { txt: '', type: 'notes' }
+}
+
+function getFilterFromSearchParams(searchParams) {
+  const title = searchParams.get('title') || ''
+  const txt = searchParams.get('txt') || ''
+  return {
+    title,
+    txt,
+  }
 }
 
 function _createNotes() {
