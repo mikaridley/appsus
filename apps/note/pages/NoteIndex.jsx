@@ -114,7 +114,7 @@ export function NoteIndex() {
         defaultFilter={filterBy}
         onSetFilter={onSetFilter}
       />
-      <Outlet context={{ saveNote, sendNoteToMail }} />
+      <Outlet context={{ saveNote }} />
     </section>
   )
 }

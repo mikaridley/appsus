@@ -10,7 +10,7 @@ export function OpenNote() {
   const { noteId } = useParams()
   const [note, setNote] = useState(null)
   const navigate = useNavigate()
-  const { saveNote, sendNoteToMail } = useOutletContext()
+  const { saveNote } = useOutletContext()
   const [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
@@ -89,7 +89,6 @@ export function OpenNote() {
               navigate(
                 `/mail/compose?subject=${params.title}&body=${params.txt}`
               )
-              noteService.sendNoteToMail(params)
             }}
             src="assets/img/note/bin.png"
           />
