@@ -4,7 +4,7 @@
     justify-content: space-between;
 
     position: relative;
-    height: 5vh;
+    height: 40px;
 
     padding-inline: 1rem;
     box-shadow: 0px -1px 0px var(--mail-bg-clr1);
@@ -37,13 +37,16 @@
     &:hover {
         box-shadow: 0px 0px 5px var(--mail-txt-clr-1);
     }
+
+    img{
+        width:1.2rem;
+    }
 }
 
 .content {
     position: absolute;
-    width: 65vw;
-    padding-inline-end: 1rem;
-    left: 15vw;
+    width: 75%;
+    left: 250px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

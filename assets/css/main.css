@@ -34,6 +34,7 @@
 @import './apps/mail/cmps/MailPreview.css';
 @import './apps/mail/cmps/MailCompose.css';
 @import './apps/mail/cmps/MailFilter.css';
+@import './apps/mail/cmps/SideNav.css';
 
 /* Book */
 @import './apps/book/cmps/AddReview.css';

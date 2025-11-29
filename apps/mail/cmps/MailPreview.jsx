@@ -5,6 +5,7 @@ const { useNavigate } = ReactRouterDOM
 
 export function MailPreview({ mail, onRemoveMail, onToggleRead, onToggleStar }) {
     const { from, subject, body, sentAt, isRead, isStarred } = mail
+
     const [isHovering, setIsHovering] = useState(false)
     const navigate = useNavigate()
 
@@ -21,19 +22,19 @@ export function MailPreview({ mail, onRemoveMail, onToggleRead, onToggleStar }) 
         else navigate(`/mail/compose/${mail.id}`)
     }
 
-    let month
-    let day
+    let month = ''
+    let day = ''
     if (sentAt) {
         const date = new Date(sentAt)
         month = utilService.getMonthNameShort(date)
         day = date.getDate()
     }
-    
+
     const userName = utilService.getUserName(from)
 
     const classRead = isRead ? 'read' : ''
-    const classEnvelope = isRead ? '-open' : ''
-    const classStar = isStarred ? 'solid' : 'regular'
+    const readImg = isRead ? 'mail-read' : 'mail-unread'
+    const starImg = isStarred ? 'full-star.png' : 'star.svg'
 
     return (
         <article className={`mail-preview ${classRead}`}
@@ -41,19 +42,24 @@ export function MailPreview({ mail, onRemoveMail, onToggleRead, onToggleStar }) 
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
-            <i className={`fa-${classStar} fa-star`}
-                onClick={event => onToggleStar(mail, event)}></i>
+            <div onClick={event => onToggleStar(mail, event)}>
+                <img src={`assets/img/mail/${starImg}`} />
+            </div>
             <p><span>{userName}</span></p>
             <p className="content">{subject} - {body}</p>
-            {!isHovering && <p>{day} {month}</p>}
 
+            {!isHovering && <p>{day} {month}</p>}
             {isHovering &&
                 <section className="flex">
-                    <i className="fa-regular fa-trash-can"
-                        onClick={event => onRemoveMail(event, mail)}></i>
 
-                    <i className={`fa-regular fa-envelope${classEnvelope}`}
-                        onClick={event => onToggleRead(mail, event)}></i>
+                    <div onClick={event => onRemoveMail(event, mail)}>
+                        <img src="assets/img/mail/trash.svg" />
+                    </div>
+
+                    <div onClick={event => onToggleRead(mail, event)}>
+                        <img src={`assets/img/mail/${readImg}.svg`} />
+                    </div>
+
                 </section>
             }
         </article>

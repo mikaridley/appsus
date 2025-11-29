@@ -1,9 +1,6 @@
 import { mailService } from '../services/mail.service.js'
 import { utilService } from '../../../services/util.service.js'
-import {
-  showSuccessMsg,
-  showErrorMsg,
-} from '../../../services/event-bus.service.js'
+import { showErrorMsg } from '../../../services/event-bus.service.js'
 
 const { useState, useEffect } = React
 const { useNavigate, useParams, useSearchParams, useOutletContext } =
@@ -11,12 +8,13 @@ const { useNavigate, useParams, useSearchParams, useOutletContext } =
 
 export function MailCompose() {
   const [mail, setMail] = useState(mailService.getEmptyMail())
-  const [searchParams, setSearchParams] = useSearchParams()
   const [isLoading, setIsLoading] = useState(false)
-  const { mailId } = useParams()
-  const navigate = useNavigate()
+  const { saveMail, closeCompose } = useOutletContext()
 
-  const { sendMailToNote } = useOutletContext()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const { mailId } = useParams()
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     setSearchParams(utilService.getValidValues({ subject, body }))
@@ -39,38 +37,19 @@ export function MailCompose() {
     mailService
       .get(mailId)
       .then(setMail)
-      .catch(err => {
-        console.log('err:', err)
-        showErrorMsg('Failed to load mail')
-      })
-      .finally(() => {
-        console.log('hi')
-        setIsLoading(false)
-      })
+      .catch(() => showErrorMsg('Failed to load mail'))
+      .finally(() => setIsLoading(false))
   }
 
   function onSaveMail(ev, mail) {
     ev.preventDefault()
-    mail.sentAt = Date.now()
-
-    mailService
-      .save(mail)
-      .then(() => {
-        onCloseModal(mail)
-        showSuccessMsg('Sent')
-      })
-      .catch(err => {
-        console.log('err:', err)
-        showErrorMsg('Failed to send Mail')
-      })
+    onCloseCompose(mail)
+    saveMail(mail)
   }
 
-  function onCloseModal(mail) {
+  function onCloseCompose(mail) {
     navigate('/mail')
-
-    if (!mail.sentAt) {
-      mailService.save(mail).then(() => showSuccessMsg('Added to drafts'))
-    }
+    closeCompose(mail)
   }
 
   function handleChange({ target }) {
@@ -96,25 +75,29 @@ export function MailCompose() {
     navigate(`/note?title=${subject}&txt=${body}&fromMail=${true}`)
   }
 
-  let { to, subject, body } = mail
-
   const loadingClass = isLoading ? 'loading' : ''
+  let { to, subject, body } = mail
 
   return (
     <form
       className={`mail-compose flex column ${loadingClass}`}
       onSubmit={event => onSaveMail(event, mail)}
     >
-      <section className="flex space-between">
+      <section className="flex">
         <p>New Message</p>
-        <button type="button" onClick={() => onCloseModal(mail)}>
-          x
+
+        <button onClick={mailToNote}>
+          <img src="assets/img/mail/make-note.svg" />
         </button>
-        <button onClick={mailToNote}>Make note</button>
+
+        <button type="button" onClick={() => onCloseCompose(mail)}>
+          <img src="assets/img/mail/close.svg" />
+        </button>
       </section>
 
       <input
         onChange={handleChange}
+        type="text"
         name="to"
         id="to"
         value={to}
@@ -123,15 +106,19 @@ export function MailCompose() {
 
       <input
         onChange={handleChange}
+        type="text"
         name="subject"
         id="subject"
         value={subject}
         placeholder="Subject"
       ></input>
 
-      <label>
-        <input onChange={handleChange} name="body" value={body}></input>
-      </label>
+      <textarea
+        onChange={handleChange}
+        name="body"
+        id="body"
+        value={body}
+      ></textarea>
 
       <button>Send</button>
     </form>
