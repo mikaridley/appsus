@@ -33,8 +33,8 @@ export function MailPreview({ mail, onRemoveMail, onToggleRead, onToggleStar }) 
     const userName = utilService.getUserName(from)
 
     const classRead = isRead ? 'read' : ''
-    const classEnvelope = isRead ? '-open' : ''
-    const classStar = isStarred ? 'solid' : 'regular'
+    const readImg = isRead ? 'mail-read' : 'mail-unread'
+    const starImg = isStarred ? 'full-star.png' : 'star.svg'
 
     return (
         <article className={`mail-preview ${classRead}`}
@@ -42,19 +42,24 @@ export function MailPreview({ mail, onRemoveMail, onToggleRead, onToggleStar }) 
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
-            <i className={`fa-${classStar} fa-star`}
-                onClick={event => onToggleStar(mail, event)}></i>
+            <div onClick={event => onToggleStar(mail, event)}>
+                <img src={`assets/img/mail/${starImg}`} />
+            </div>
             <p><span>{userName}</span></p>
             <p className="content">{subject} - {body}</p>
 
             {!isHovering && <p>{day} {month}</p>}
             {isHovering &&
                 <section className="flex">
-                    <i className="fa-regular fa-trash-can"
-                        onClick={event => onRemoveMail(event, mail)}></i>
 
-                    <i className={`fa-regular fa-envelope${classEnvelope}`}
-                        onClick={event => onToggleRead(mail, event)}></i>
+                    <div onClick={event => onRemoveMail(event, mail)}>
+                        <img src="assets/img/mail/trash.svg" />
+                    </div>
+
+                    <div onClick={event => onToggleRead(mail, event)}>
+                        <img src={`assets/img/mail/${readImg}.svg`} />
+                    </div>
+
                 </section>
             }
         </article>

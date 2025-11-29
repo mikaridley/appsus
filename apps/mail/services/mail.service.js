@@ -86,9 +86,9 @@ function _sortBy(mails, sort) {
         mails.sort((m1, m2) => (m1.sentAt - m2.sentAt) * -1)
     } else if (sort === 'date-up') {
         mails.sort((m1, m2) => (m1.sentAt - m2.sentAt))
-    } else if (sort === 'from-up') {
+    } else if (sort === 'alpha-up') {
         mails.sort((m1, m2) => m1.from.localeCompare(m2.from) * -1)
-    } else if (sort === 'from-down') {
+    } else if (sort === 'alpha-down') {
         mails.sort((m1, m2) => m1.from.localeCompare(m2.from))
     }
     return mails

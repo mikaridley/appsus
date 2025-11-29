@@ -7,15 +7,33 @@ export function SideNav({ onSetFilterBy }) {
     mailService.getUnreadMails().then(setUnreadCount)
 
     return (
-        <nav className="side-nav">
+        <nav className="side-nav note-side-bar">
             <Link to="/mail/compose">
-                <button>Compose</button>
+                <button>
+                    <img src="assets/img/mail/compose.svg" />
+                    Compose
+                </button>
             </Link>
-            <p onClick={() => onSetFilterBy({ nav: 'inbox' })}>Inbox {unreadCount}</p>
-            <p onClick={() => onSetFilterBy({ nav: 'starred' })}>Starred</p>
-            <p onClick={() => onSetFilterBy({ nav: 'sent' })}>Sent</p>
-            <p onClick={() => onSetFilterBy({ nav: 'draft' })}>Drafts</p>
-            <p onClick={() => onSetFilterBy({ nav: 'trash' })}>Trash</p>
+            <div className="side-bar-row" onClick={() => onSetFilterBy({ nav: 'inbox' })} >
+                <img src="assets/img/mail/inbox.svg" />
+                <p>Inbox {unreadCount}</p>
+            </div>
+            <div className="side-bar-row" onClick={() => onSetFilterBy({ nav: 'starred' })}>
+                <img src="assets/img/mail/star.svg" />
+                <p>Starred</p>
+            </div>
+            <div className="side-bar-row" onClick={() => onSetFilterBy({ nav: 'sent' })}>
+                <img src="assets/img/mail/sent.svg" />
+                <p>Sent</p>
+            </div>
+            <div className="side-bar-row" onClick={() => onSetFilterBy({ nav: 'draft' })}>
+                <img src="assets/img/mail/draft.svg" />
+                <p>Drafts</p>
+            </div>
+            <div className="side-bar-row" onClick={() => onSetFilterBy({ nav: 'trash' })}>
+                <img src="assets/img/mail/trash.svg" />
+                <p>Trash</p>
+            </div>
         </nav>
     )
 }

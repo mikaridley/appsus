@@ -7,6 +7,9 @@ export function AppHeader() {
     if (pathname === '/note') {
       document.body.classList.toggle('note-menu-open')
     }
+    if (pathname === '/mail') {
+      document.body.classList.toggle('note-menu-open')
+    }
   }
 
   return (
