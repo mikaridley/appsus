@@ -5,22 +5,8 @@ export function NoteSideBar({ setTypeFilter }) {
   const [activePage, setActivePage] = useState('notes')
 
   function onSetPage(type) {
-    if (type === 'notes') {
-      setActivePage(page => 'notes')
-      setTypeFilter('notes')
-    } else if (type === 'texts') {
-      setActivePage(page => 'texts')
-      setTypeFilter('texts')
-    } else if (type === 'photos') {
-      setActivePage(page => 'photos')
-      setTypeFilter('photos')
-    } else if (type === 'todos') {
-      setActivePage(page => 'todos')
-      setTypeFilter('todos')
-    } else if (type === 'videos') {
-      setActivePage(page => 'videos')
-      setTypeFilter('videos')
-    }
+    setActivePage(type)
+    setTypeFilter(type)
   }
   return (
     <section className="note-side-bar">

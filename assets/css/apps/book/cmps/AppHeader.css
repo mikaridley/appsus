@@ -1,0 +1,51 @@
+.app-header {
+  background-color: var(--clr-primary-3);
+  color: var(--clr-primary-1);
+}
+
+.app-header section:first-child {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: space-between;
+
+  height: max-content;
+}
+
+.logo {
+  width: 250px;
+}
+
+.app-header .app-nav {
+  display: flex;
+  gap: 40px;
+
+  text-transform: uppercase;
+  font-family: 'manrope', serif;
+  font-size: 1.5rem;
+
+  > a {
+    cursor: pointer;
+  }
+}
+
+.title-search {
+  position: absolute;
+  top: 3.5%;
+  left: 50%;
+  translate: -50%;
+
+  width: 40vw;
+  padding: 1rem;
+  border-radius: 20px;
+
+  font-size: 1.8rem;
+  background-color: var(--clr-primary-2);
+  border: none;
+  color: var(--clr-primary-1);
+  font-family: 'sora', sans-serif;
+
+  &::placeholder {
+    color: var(--clr-primary-1);
+  }
+}

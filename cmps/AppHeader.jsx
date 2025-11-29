@@ -33,7 +33,7 @@ export function AppHeader() {
         {pathname.includes('/note') && (
           <img className="logo" src="assets/img/main/logo-notes.png" />
         )}
-        {pathname === '/book' && (
+        {pathname.includes('/book') && (
           <img className="logo" src="assets/img/main/logo-books.png" />
         )}
       </Link>

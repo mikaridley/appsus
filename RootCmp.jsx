@@ -8,9 +8,12 @@ import { NoteIndex } from './apps/note/pages/NoteIndex.jsx'
 import { UserMsg } from './cmps/UserMsg.jsx'
 import { OpenNote } from './apps/note/cmps/OpenNote.jsx'
 import { AppHeader } from './cmps/AppHeader.jsx'
-
 import { MailDetails } from './apps/mail/cmps/MailDetails.jsx'
 import { MailCompose } from './apps/mail/cmps/Mail.Compose.jsx'
+import { BookIndex } from './apps/books/pages/BookIndex.jsx'
+import { BookDetails } from './apps/books/pages/BookDetails.jsx'
+import { AddReview } from './apps/books/cmps/AddReview.jsx'
+import { BookEdit } from './apps/books/pages/BookEdit.jsx'
 
 export function App() {
   return (
@@ -28,7 +31,12 @@ export function App() {
           <Route path="/note" element={<NoteIndex />}>
             <Route path="/note/:noteId" element={<OpenNote />} />
           </Route>
-          <Route path="/book" element={<Home />} />
+          <Route path="/book" element={<BookIndex />} />
+          <Route path="/book/:bookId" element={<BookDetails />}>
+            <Route path="/book/:bookId/addReview" element={<AddReview />} />
+          </Route>
+          <Route path="/book/edit" element={<BookEdit />} />
+          <Route path="/book/edit/:bookId" element={<BookEdit />} />
         </Routes>
         <UserMsg />
       </section>
