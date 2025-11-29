@@ -3,6 +3,7 @@ const { useState, useEffect } = React
 
 export function AppHeader() {
   const { pathname } = useLocation()
+
   function toggleMenu() {
     if (pathname === '/note') {
       document.body.classList.toggle('note-menu-open')
@@ -14,7 +15,9 @@ export function AppHeader() {
       <div
         onClick={toggleMenu}
         className={`burger-container ${
-          pathname === '/note' || pathname === '/mail' ? '' : 'noBurger'
+          pathname.includes('/note') || pathname.includes('/mail')
+            ? ''
+            : 'noBurger'
         }`}
       >
         <img className="burger" src="assets/img/note/burger.png" />
@@ -24,10 +27,10 @@ export function AppHeader() {
         {(pathname === '/' || pathname === '/about') && (
           <img className="logo" src="assets/img/main/logo-hub.png" />
         )}
-        {pathname === '/mail' && (
+        {pathname.includes('/mail') && (
           <img className="logo" src="assets/img/main/logo-email.png" />
         )}
-        {pathname === '/note' && (
+        {pathname.includes('/note') && (
           <img className="logo" src="assets/img/main/logo-notes.png" />
         )}
         {pathname === '/book' && (
@@ -36,7 +39,7 @@ export function AppHeader() {
       </Link>
       <nav>
         <NavLink to="/">Home</NavLink>
-        <NavLink to="/mail">Mail</NavLink>
+        <NavLink to="/mail">Email</NavLink>
         <NavLink to="/note">Notes</NavLink>
         <NavLink to="/book">Books</NavLink>
         <NavLink to="/about">About us</NavLink>
