@@ -1,6 +1,6 @@
 .open-note {
   position: absolute;
-  top: 30%;
+  top: 40%;
   left: 50%;
   translate: -50% -30%;
 
@@ -20,6 +20,8 @@
     height: 50px;
     position: absolute;
     right: 0;
+    opacity: 1;
+
     cursor: pointer;
 
     &:hover {

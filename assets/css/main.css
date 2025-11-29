@@ -24,8 +24,8 @@
 /* Notes */
 @import './apps/note/cmps/NoteSideBar.css';
 @import './apps/note/cmps/NoteList.css';
-@import './apps/note/cmps/OpenNote.css';
 @import './apps/note/cmps/AddNote.css';
+@import './apps/note/cmps/OpenNote.css';
 @import './apps/note/cmps/NoteFilter.css';
 @import './apps/note/cmps/InputFeatures.css';
 
