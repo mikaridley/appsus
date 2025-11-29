@@ -1,3 +1,11 @@
+@media (max-width: 1050px) {
+  .about {
+    .about-content {
+      padding-inline: 1rem;
+    }
+  }
+}
+
 @media (max-width: 750px) {
   .app-header {
     display: grid;
@@ -7,6 +15,16 @@
       justify-self: center;
       grid-row: 2;
       grid-column: span 2;
+    }
+  }
+
+  .about {
+    .about-content {
+      padding-block: 1.5rem;
+    }
+
+    .about-us-content {
+      gap: 1rem;
     }
   }
 }

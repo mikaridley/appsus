@@ -8,11 +8,11 @@
 
   .about-content {
     background-image: url('../../img/about/about-bg.png');
+
     background-size: cover;
 
     padding-inline: 12rem;
     padding-block: 4rem;
-    max-width: 1500px;
   }
 
   .about-us-content {
