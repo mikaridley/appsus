@@ -5,13 +5,13 @@ header {
 
 .app-header {
   display: grid;
-  grid-template-columns: 0.3fr 3fr 2fr;
+  grid-template-columns: auto 3fr 2fr;
   justify-items: start;
   align-items: center;
   padding: 20px;
   text-transform: uppercase;
 
-  > :nth-child(3) {
+  > nav {
     justify-self: end;
   }
 }
