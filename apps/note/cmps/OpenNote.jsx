@@ -78,6 +78,9 @@ export function OpenNote() {
     const title = searchParams.get('title')
     const txt = searchParams.get('txt')
 
+    if (!title) title = ''
+    if (!txt) txt = ''
+
     navigate(`/mail/compose?subject=${title}&body=${txt}`)
   }
 
