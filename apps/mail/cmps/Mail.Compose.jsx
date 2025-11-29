@@ -4,123 +4,126 @@ import { showErrorMsg } from '../../../services/event-bus.service.js'
 
 const { useState, useEffect } = React
 const { useNavigate, useParams, useSearchParams, useOutletContext } =
-  ReactRouterDOM
+    ReactRouterDOM
 
 export function MailCompose() {
-  const [mail, setMail] = useState(mailService.getEmptyMail())
-  const [isLoading, setIsLoading] = useState(false)
-  const { saveMail, closeCompose } = useOutletContext()
+    const [mail, setMail] = useState(mailService.getEmptyMail())
+    const [isLoading, setIsLoading] = useState(false)
+    const { saveMail, closeCompose } = useOutletContext()
 
-  const [searchParams, setSearchParams] = useSearchParams()
-  const { mailId } = useParams()
+    const [searchParams, setSearchParams] = useSearchParams()
+    const { mailId } = useParams()
 
-  const navigate = useNavigate()
+    const navigate = useNavigate()
 
-  useEffect(() => {
-    setSearchParams(utilService.getValidValues({ subject, body }))
-  }, [mail])
+    useEffect(() => {
+        setSearchParams(utilService.getValidValues({ subject, body }))
+    }, [mail])
 
-  useEffect(() => {
-    if (mailId) loadMail()
-    if (searchParams.get('subject')) {
-      mail.subject = searchParams.get('subject')
-      setMail(mail)
+    useEffect(() => {
+        if (mailId) loadMail()
+        if (searchParams.get('subject')) {
+            mail.subject = searchParams.get('subject')
+            setMail(mail)
+        }
+        if (searchParams.get('body')) {
+            mail.body = searchParams.get('body')
+            setMail(mail)
+        }
+    }, [])
+
+    function loadMail() {
+        setIsLoading(true)
+        mailService
+            .get(mailId)
+            .then(setMail)
+            .catch(() => showErrorMsg('Failed to load mail'))
+            .finally(() => setIsLoading(false))
     }
-    if (searchParams.get('body')) {
-      mail.body = searchParams.get('body')
-      setMail(mail)
+
+    function onSaveMail(ev, mail) {
+        ev.preventDefault()
+        onCloseCompose(mail)
+        saveMail(mail)
     }
-  }, [])
 
-  function loadMail() {
-    setIsLoading(true)
-    mailService
-      .get(mailId)
-      .then(setMail)
-      .catch(() => showErrorMsg('Failed to load mail'))
-      .finally(() => setIsLoading(false))
-  }
-
-  function onSaveMail(ev, mail) {
-    ev.preventDefault()
-    onCloseCompose(mail)
-    saveMail(mail)
-  }
-
-  function onCloseCompose(mail) {
-    navigate('/mail')
-    closeCompose(mail)
-  }
-
-  function handleChange({ target }) {
-    const field = target.name
-    let value = target.value
-    switch (target.type) {
-      case 'number':
-      case 'range':
-        value = +value
-        break
-
-      case 'checkbox':
-        value = target.checked
-        break
+    function onCloseCompose(mail) {
+        navigate('/mail')
+        closeCompose(mail)
     }
-    setMail(prevMail => ({ ...prevMail, [field]: value }))
-  }
 
-  function mailToNote() {
-    const subject = searchParams.get('subject')
-    const body = searchParams.get('body')
+    function handleChange({ target }) {
+        const field = target.name
+        let value = target.value
+        switch (target.type) {
+            case 'number':
+            case 'range':
+                value = +value
+                break
 
-    navigate(`/note?title=${subject}&txt=${body}&fromMail=${true}`)
-  }
+            case 'checkbox':
+                value = target.checked
+                break
+        }
+        setMail(prevMail => ({ ...prevMail, [field]: value }))
+    }
 
-  const loadingClass = isLoading ? 'loading' : ''
-  let { to, subject, body } = mail
+    function mailToNote() {
+        let subject = searchParams.get('subject')
+        let body = searchParams.get('body')
+        
+        if (!subject) subject = ''
+        if (!body) body = ''
 
-  return (
-    <form
-      className={`mail-compose flex column ${loadingClass}`}
-      onSubmit={event => onSaveMail(event, mail)}
-    >
-      <section className="flex">
-        <p>New Message</p>
+        navigate(`/note?title=${subject}&txt=${body}&fromMail=${true}`)
+    }
 
-        <button onClick={mailToNote}>
-          <img src="assets/img/mail/make-note.svg" />
-        </button>
+    const loadingClass = isLoading ? 'loading' : ''
+    let { to, subject, body } = mail
 
-        <button type="button" onClick={() => onCloseCompose(mail)}>
-          <img src="assets/img/mail/close.svg" />
-        </button>
-      </section>
+    return (
+        <form
+            className={`mail-compose flex column ${loadingClass}`}
+            onSubmit={event => onSaveMail(event, mail)}
+        >
+            <section className="flex">
+                <p>New Message</p>
 
-      <input
-        onChange={handleChange}
-        type="text"
-        name="to"
-        id="to"
-        value={to}
-        placeholder="To"
-      ></input>
+                <button onClick={mailToNote}>
+                    <img src="assets/img/mail/make-note.svg" />
+                </button>
 
-      <input
-        onChange={handleChange}
-        type="text"
-        name="subject"
-        id="subject"
-        value={subject}
-        placeholder="Subject"
-      ></input>
+                <button type="button" onClick={() => onCloseCompose(mail)}>
+                    <img src="assets/img/mail/close.svg" />
+                </button>
+            </section>
 
-      <textarea
-        onChange={handleChange}
-        name="body"
-        id="body"
-        value={body}
-      ></textarea>
+            <input
+                onChange={handleChange}
+                type="text"
+                name="to"
+                id="to"
+                value={to}
+                placeholder="To"
+            ></input>
 
-      <button>Send</button>
-    </form>
-  )
+            <input
+                onChange={handleChange}
+                type="text"
+                name="subject"
+                id="subject"
+                value={subject}
+                placeholder="Subject"
+            ></input>
+
+            <textarea
+                onChange={handleChange}
+                name="body"
+                id="body"
+                value={body}
+            ></textarea>
+
+            <button>Send</button>
+        </form>
+    )
 }
