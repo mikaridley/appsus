@@ -1,4 +1,7 @@
 .note-list {
+  grid-column: 2;
+  grid-row: 1;
+
   padding: 1rem;
 
   .note-list-header {
@@ -49,6 +52,7 @@
     }
   }
 }
+
 .note-header {
   display: flex;
   justify-content: space-between;

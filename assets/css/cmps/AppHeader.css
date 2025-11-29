@@ -1,6 +1,9 @@
 header {
   background: var(--bg-clr);
   border-bottom: 2px solid var(--border-clr);
+
+  position: relative;
+  z-index: 2;
 }
 
 .app-header {

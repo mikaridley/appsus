@@ -15,9 +15,10 @@
 
     background-color: var(--clr-note-bg-2);
 
-    > input {
+    .note-txt-filter {
       padding: 1rem;
       border: none;
+      border-radius: 10px;
 
       background-color: var(--clr-note-bg-2);
 

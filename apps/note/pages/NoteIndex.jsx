@@ -103,6 +103,7 @@ export function NoteIndex() {
 
   return (
     <section className="note-index note-main-layout">
+      <div className="note-black-screen-for-menu"></div>
       <NoteSideBar setTypeFilter={setTypeFilter} />
       <NoteList
         notes={notes}
